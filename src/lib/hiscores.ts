@@ -7,13 +7,8 @@ const SKILL_ORDER: Skill[] = [
   'Runecraft', 'Hunter', 'Construction',
 ];
 
-const HISCORES_URL = 'https://secure.runescape.com/m=hiscore_oldschool/index_lite.json';
-
 export async function lookupHiscores(username: string): Promise<Record<string, number>> {
-  const target = `${HISCORES_URL}?player=${encodeURIComponent(username)}`;
-  const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(target)}`;
-
-  const res = await fetch(proxyUrl);
+  const res = await fetch(`/api/hiscores?player=${encodeURIComponent(username)}`);
   if (!res.ok) {
     if (res.status === 404) throw new Error('Player not found');
     throw new Error('Hiscores unavailable');
