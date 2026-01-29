@@ -29,9 +29,64 @@ body {
   padding-bottom: 1rem;
 }
 
+.app-header-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .app-header h1 {
   color: var(--osrs-accent);
   margin: 0;
+}
+
+.help-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--osrs-border);
+  background: var(--osrs-panel);
+  color: var(--osrs-accent);
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.help-btn:hover {
+  background: var(--osrs-border);
+  border-color: var(--osrs-accent);
+}
+
+.help-modal {
+  max-width: 500px;
+  width: 90%;
+}
+
+.help-modal .popup-body p,
+.help-modal .popup-body ul {
+  color: var(--osrs-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.help-modal .popup-body h4 {
+  color: var(--osrs-accent);
+  margin: 1rem 0 0.25rem;
+  font-size: 0.95rem;
+}
+
+.help-modal .popup-body ul {
+  padding-left: 1.25rem;
+}
+
+.help-modal .popup-body li {
+  margin-bottom: 0.4rem;
 }
 
 .app-header p {

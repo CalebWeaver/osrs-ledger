@@ -1,6 +1,7 @@
 import { fetchPrices } from '@/lib/price-service';
 import { methods } from '@/data/methods';
 import { ClientPage } from '@/components/ClientPage';
+import { HelpButton } from '@/components/HelpModal';
 
 // Server Component
 export default async function Home() {
@@ -10,7 +11,10 @@ export default async function Home() {
   return (
     <main className="main-container">
       <header className="app-header">
-        <h1>OSRS Ledger</h1>
+        <div className="app-header-title">
+          <h1>OSRS Ledger</h1>
+          <HelpButton />
+        </div>
         <p>Live profitability based on real-time GE prices.</p>
       </header>
 
