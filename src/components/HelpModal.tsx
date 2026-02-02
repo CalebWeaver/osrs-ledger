@@ -25,15 +25,21 @@ export function HelpButton() {
             <div className="popup-body">
               <p>
                 <strong>OSRS Ledger</strong> is a real-time money-making recommender for
-                Old School RuneScape. It evaluates skilling methods using live Grand Exchange
-                prices to show you the most profitable activities.
+                Old School RuneScape. It evaluates methods across many skills &mdash; including
+                Crafting, Smithing, Magic, Herblore, Cooking, Fletching, Runecraft, Mining,
+                Woodcutting, Fishing, Hunter, Thieving, and Sailing &mdash; using live Grand
+                Exchange prices to show you the most profitable activities.
               </p>
               <h4>How to use</h4>
               <ul>
                 <li>
                   <strong>Set your levels</strong> &mdash; Enter your skill levels in the
-                  sidebar to filter methods you can actually do. You can also look up a
+                  Levels tab to filter methods you can actually do. You can also look up a
                   player name to auto-fill stats.
+                </li>
+                <li>
+                  <strong>Filter by skill</strong> &mdash; Use the skill toggles on the
+                  Levels tab to show only methods for specific skills.
                 </li>
                 <li>
                   <strong>Browse methods</strong> &mdash; Methods are sorted by profit per
@@ -43,6 +49,10 @@ export function HelpButton() {
                 <li>
                   <strong>Show unavailable</strong> &mdash; Toggle this to see methods you
                   don&apos;t yet meet the requirements for.
+                </li>
+                <li>
+                  <strong>High Alchemy</strong> &mdash; Check the High Alchemy tab for a
+                  sortable table of item alchemy profitability based on live prices.
                 </li>
                 <li>
                   <strong>Crafting chains</strong> &mdash; Click &quot;Start Chain&quot; on a
