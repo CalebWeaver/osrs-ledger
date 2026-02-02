@@ -25,10 +25,9 @@ export function HelpButton() {
             <div className="popup-body">
               <p>
                 <strong>OSRS Ledger</strong> is a real-time money-making recommender for
-                Old School RuneScape. It evaluates methods across many skills &mdash; including
-                Crafting, Smithing, Magic, Herblore, Cooking, Fletching, Runecraft, Mining,
-                Woodcutting, Fishing, Hunter, Thieving, and Sailing &mdash; using live Grand
-                Exchange prices to show you the most profitable activities.
+                Old School RuneScape. It evaluates skilling and gathering methods across
+                13+ skills using live Grand Exchange prices to show you the most profitable
+                activities.
               </p>
               <h4>How to use</h4>
               <ul>
