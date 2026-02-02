@@ -141,4 +141,50 @@ export const runecraftMethods: Method[] = [
     exp: [{ skill: 'Runecraft', amount: 8 }],
     ticksPerAction: 4,
   },
+  // Combination runes (with binding necklace)
+  {
+    id: 'rc-mist-runes',
+    name: 'Craft mist runes',
+    category: 'Runecraft',
+    requirements: [{ skill: 'Runecraft', level: 6 }],
+    inputs: [
+      { id: 7936, count: 1 },     // Pure essence
+      { id: 555, count: 1 },      // Water rune
+      { id: 5521, count: 0.0625 }, // Binding necklace (1/16)
+    ],
+    outputs: [{ id: 4695, count: 1 }], // Mist rune
+    exp: [{ skill: 'Runecraft', amount: 8 }],
+    ticksPerAction: 4,
+    notes: 'Assumes binding necklace (100% success rate).',
+  },
+  {
+    id: 'rc-mud-runes',
+    name: 'Craft mud runes',
+    category: 'Runecraft',
+    requirements: [{ skill: 'Runecraft', level: 13 }],
+    inputs: [
+      { id: 7936, count: 1 },     // Pure essence
+      { id: 555, count: 1 },      // Water rune
+      { id: 5521, count: 0.0625 }, // Binding necklace (1/16)
+    ],
+    outputs: [{ id: 4698, count: 1 }], // Mud rune
+    exp: [{ skill: 'Runecraft', amount: 9.3 }],
+    ticksPerAction: 4,
+    notes: 'Assumes binding necklace (100% success rate).',
+  },
+  {
+    id: 'rc-steam-runes',
+    name: 'Craft steam runes',
+    category: 'Runecraft',
+    requirements: [{ skill: 'Runecraft', level: 19 }],
+    inputs: [
+      { id: 7936, count: 1 },     // Pure essence
+      { id: 555, count: 1 },      // Water rune
+      { id: 5521, count: 0.0625 }, // Binding necklace (1/16)
+    ],
+    outputs: [{ id: 4694, count: 1 }], // Steam rune
+    exp: [{ skill: 'Runecraft', amount: 10 }],
+    ticksPerAction: 4,
+    notes: 'Assumes binding necklace (100% success rate).',
+  },
 ];

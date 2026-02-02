@@ -1,4 +1,6 @@
 export const ITEM_NAMES: Record<number, string> = {
+  // Currency
+  995: 'Coins',
   // Runes
   555: 'Water rune',
   558: 'Mind rune',
@@ -7,6 +9,9 @@ export const ITEM_NAMES: Record<number, string> = {
   564: 'Cosmic rune',
   565: 'Blood rune',
   566: 'Soul rune',
+  4694: 'Steam rune',
+  4695: 'Mist rune',
+  4698: 'Mud rune',
   9075: 'Astral rune',
   // Materials
   1761: 'Soft clay',
@@ -376,6 +381,11 @@ export const ITEM_NAMES: Record<number, string> = {
   3026: 'Super restore(3)',
   3042: 'Magic potion(3)',
   6687: 'Saradomin brew(3)',
+  // Mining
+  434: 'Clay',
+  21347: 'Amethyst',
+  // Woodcutting
+  19669: 'Redwood logs',
   // Smithing - Ores
   436: 'Copper ore',
   438: 'Tin ore',
@@ -538,4 +548,15 @@ export const ITEM_NAMES: Record<number, string> = {
   562: 'Chaos rune',
   7936: 'Pure essence',
   21880: 'Wrath rune',
+  // Sailing - Deep Sea Fish
+  32307: 'Fine fish offcuts',
+  32325: 'Raw yellowfin',
+  32333: 'Raw halibut',
+  32336: 'Halibut',
+  32341: 'Raw bluefin',
+  32344: 'Bluefin',
+  32349: 'Raw marlin',
+  32352: 'Marlin',
+  32360: 'Yellow fin',
+  32362: 'Marlin scales',
 };

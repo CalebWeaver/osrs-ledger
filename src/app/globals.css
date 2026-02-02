@@ -1037,6 +1037,10 @@ select.input-field option {
   width: 250px;
 }
 
+.alch-filter-input {
+  width: 140px;
+}
+
 .alch-count {
   color: #888;
   font-size: 0.85rem;

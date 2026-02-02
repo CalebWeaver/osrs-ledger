@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Method, PriceMap, Skill, MethodEvaluation, ItemMapping } from '@/lib/types';
+import { Method, PriceMap, Skill, MethodEvaluation, ItemMapping, PlayerModifiers } from '@/lib/types';
 import { evaluateMethod } from '@/lib/evaluator';
 import { methods } from '@/data/methods';
 import { lookupHiscores } from '@/lib/hiscores';
@@ -9,6 +9,7 @@ import { MethodCard } from './MethodCard';
 import { SkillInput } from './SkillInput';
 import { CraftingChain } from './CraftingChain';
 import { HighAlchTab } from './HighAlchTab';
+import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
 
 const ALL_SKILLS: Skill[] = [
   'Attack', 'Strength', 'Defence', 'Ranged', 'Prayer', 'Magic', 'Runecraft',
@@ -31,6 +32,8 @@ const ALL_QUESTS = [
   'Desert Treasure I',
   'A Kingdom Divided',
   'Client of Kourend',
+  'Sins of the Father',
+  'Song of the Elves',
 ];
 
 interface ClientPageProps {
@@ -47,12 +50,12 @@ interface SavedSettings {
   playerStats?: Record<string, number>;
   showUnavailable?: boolean;
   availableGold?: string;
-  sortBy?: string;
   minOutputVolume?: string;
   gpPerXp?: string;
   completedQuests?: string[];
   activeTab?: AppTab;
   xpSkillFilter?: string[];
+  roguesOutfit?: boolean;
 }
 
 function loadSettings(): SavedSettings {
@@ -78,7 +81,6 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
   const [showUnavailable, setShowUnavailable] = useState<boolean>(true);
   const [availableGold, setAvailableGold] = useState<string>('');
   const [chain, setChain] = useState<MethodEvaluation[]>([]);
-  const [sortBy, setSortBy] = useState<'default' | 'profitPerHour'>('profitPerHour');
   const [minOutputVolume, setMinOutputVolume] = useState<string>('20000');
   const [gpPerXp, setGpPerXp] = useState<string>('');
   const [completedQuests, setCompletedQuests] = useState<Set<string>>(new Set());
@@ -86,6 +88,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>('levels');
   const [activeTab, setActiveTab] = useState<AppTab>('methods');
   const [xpSkillFilter, setXpSkillFilter] = useState<Set<Skill>>(new Set());
+  const [roguesOutfit, setRoguesOutfit] = useState<boolean>(false);
 
   // Restore saved settings on mount
   useEffect(() => {
@@ -102,12 +105,12 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     }
     if (s.showUnavailable !== undefined) setShowUnavailable(s.showUnavailable);
     if (s.availableGold !== undefined) setAvailableGold(s.availableGold);
-    if (s.sortBy === 'default' || s.sortBy === 'profitPerHour') setSortBy(s.sortBy);
     if (s.minOutputVolume !== undefined) setMinOutputVolume(s.minOutputVolume);
     if (s.gpPerXp !== undefined) setGpPerXp(s.gpPerXp);
     if (s.completedQuests) setCompletedQuests(new Set(s.completedQuests));
     if (s.activeTab === 'methods' || s.activeTab === 'highalch') setActiveTab(s.activeTab);
     if (s.xpSkillFilter) setXpSkillFilter(new Set(s.xpSkillFilter as Skill[]));
+    if (s.roguesOutfit !== undefined) setRoguesOutfit(s.roguesOutfit);
     setHydrated(true);
   }, []);
 
@@ -115,11 +118,11 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
   useEffect(() => {
     if (!hydrated) return;
     saveSettings({
-      username, playerStats, showUnavailable, availableGold, sortBy,
+      username, playerStats, showUnavailable, availableGold,
       minOutputVolume, gpPerXp, completedQuests: Array.from(completedQuests), activeTab,
-      xpSkillFilter: Array.from(xpSkillFilter),
+      xpSkillFilter: Array.from(xpSkillFilter), roguesOutfit,
     });
-  }, [hydrated, username, playerStats, showUnavailable, availableGold, sortBy, minOutputVolume, gpPerXp, completedQuests, activeTab, xpSkillFilter]);
+  }, [hydrated, username, playerStats, showUnavailable, availableGold, minOutputVolume, gpPerXp, completedQuests, activeTab, xpSkillFilter, roguesOutfit]);
 
   async function lookupPlayer(name: string) {
     const trimmed = name.trim();
@@ -173,12 +176,14 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     });
   }
 
+  const modifiers: PlayerModifiers = { roguesOutfit };
+
   const evaluations = methods
-    .map(m => evaluateMethod(m, prices, playerStats, completedQuests))
+    .map(m => evaluateMethod(m, prices, playerStats, completedQuests, modifiers))
     .filter(ev => {
       if (!showUnavailable && ev.isLocked) return false;
       if (availableGold !== '') {
-        const goldLimit = parseInt(availableGold, 10);
+        const goldLimit = parseGpInput(availableGold);
         const costPerHour = ev.costPerAction * ev.actionsPerHour;
         if (!isNaN(goldLimit) && costPerHour > goldLimit) return false;
       }
@@ -194,26 +199,23 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
       return true;
     })
     .sort((a, b) => {
-      if (sortBy === 'profitPerHour') {
-        const xpValue = parseFloat(gpPerXp) || 0;
-        const effA = a.profitPerHour + a.totalExpPerHour * xpValue;
-        const effB = b.profitPerHour + b.totalExpPerHour * xpValue;
-        return effB - effA;
-      }
-      return 0;
+      const xpValue = parseFloat(gpPerXp) || 0;
+      const effA = a.profitPerHour + a.totalExpPerHour * xpValue;
+      const effB = b.profitPerHour + b.totalExpPerHour * xpValue;
+      return effB - effA;
     });
 
   // Chain Handlers
   const handleStartChain = (methodId: string) => {
     const method = methods.find(m => m.id === methodId);
     if (!method) return;
-    const evalResult = evaluateMethod(method, prices, playerStats, completedQuests);
+    const evalResult = evaluateMethod(method, prices, playerStats, completedQuests, modifiers);
     setChain([evalResult]);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleAddStep = (method: Method, index: number) => {
-    const evalResult = evaluateMethod(method, prices, playerStats, completedQuests);
+    const evalResult = evaluateMethod(method, prices, playerStats, completedQuests, modifiers);
     const newChain = [...chain];
     newChain.splice(index, 0, evalResult);
     setChain(newChain);
@@ -343,13 +345,26 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         )}
 
         <div className="control-group">
+          <label className="input-label">Equipment</label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              checked={roguesOutfit}
+              onChange={(e) => setRoguesOutfit(e.target.checked)}
+            />
+            {"Rogue's Outfit (2x pickpocket loot)"}
+          </label>
+        </div>
+
+        <div className="control-group">
           <label className="input-label">Available Gold (GP/hr cost limit)</label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             className="input-field w-full"
-            placeholder="No Limit"
+            placeholder="No Limit (e.g. 5M, 100K)"
             value={availableGold}
-            onChange={(e) => setAvailableGold(e.target.value)}
+            onChange={(e) => setAvailableGold(normalizeGpInput(e.target.value))}
           />
         </div>
 
@@ -364,19 +379,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
           />
         </div>
 
-        <div className="control-group">
-          <label className="input-label">Sort By</label>
-          <select
-            className="input-field w-full"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as 'default' | 'profitPerHour')}
-          >
-            <option value="default">Default</option>
-            <option value="profitPerHour">Profit Per Hour</option>
-          </select>
-        </div>
-
-        <div className="control-group">
+<div className="control-group">
           <label className="input-label">XP Value (GP per XP)</label>
           <input
             type="number"

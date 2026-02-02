@@ -32,6 +32,11 @@ export interface Method {
   notes?: string;
   quests?: string[];
   successRate?: { skill: Skill; low: number; high: number };
+  stunTicks?: number;
+}
+
+export interface PlayerModifiers {
+  roguesOutfit?: boolean;
 }
 
 export interface PriceData {

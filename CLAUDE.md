@@ -49,6 +49,12 @@ A **Method** defines an activity: inputs (items consumed), outputs (items produc
 - **Pricing**: Prefer 24h averages over instant prices; buy prices for inputs, sell prices for outputs
 - **Game math**: 1 game tick = 0.6s, actions/hr = 6000 / (ticksPerAction + bankTimePerAction)
 
+## Documentation
+
+- `docs/methods.md` — Comprehensive catalog of all money-making methods organized by skill
+- `docs/architecture/` — System architecture and module docs
+- `docs/stories/` — Feature implementation stories
+
 ## Stack
 
 Next.js 16, React 19, TypeScript 5, Vitest, deployed on Vercel.

@@ -1,4 +1,4 @@
-import { Method, MethodEvaluation, PriceMap, Requirement, Skill } from './types';
+import { Method, MethodEvaluation, PlayerModifiers, PriceMap, Requirement, Skill } from './types';
 import { ITEM_NAMES } from './itemNames';
 export { ITEM_NAMES } from './itemNames';
 
@@ -26,7 +26,8 @@ export function evaluateMethod(
   method: Method,
   prices: PriceMap,
   playerStats: Record<Skill, number>,
-  completedQuests?: Set<string>
+  completedQuests?: Set<string>,
+  modifiers?: PlayerModifiers
 ): MethodEvaluation {
   // 1. Check Requirements
   const missingRequirements: Requirement[] = [];
@@ -67,12 +68,14 @@ export function evaluateMethod(
   const successMultiplier = successRate ?? 1;
 
   // 4. Calculate Revenue (scaled by success rate)
+  const lootMultiplier = (method.category === 'Thieving' && modifiers?.roguesOutfit) ? 2 : 1;
   let revenuePerAction = 0;
   const outputRevenues = method.outputs.map((output) => {
     const priceData = prices[output.id];
+    // Coins are always worth 1 gp each
     // Use 'avgLowPrice' (24h sell avg) if available, else 'low' (latest sell instasell)
-    const price = priceData?.avgLowPrice ?? priceData?.low ?? 0;
-    const effectiveCount = output.count * successMultiplier;
+    const price = output.id === 995 ? 1 : (priceData?.avgLowPrice ?? priceData?.low ?? 0);
+    const effectiveCount = output.count * successMultiplier * lootMultiplier;
     const total = price * effectiveCount;
     revenuePerAction += total;
     const volume = (priceData?.highPriceVolume ?? 0) + (priceData?.lowPriceVolume ?? 0);
@@ -88,7 +91,8 @@ export function evaluateMethod(
 
   // 5. Profit
   const profitPerAction = revenuePerAction - costPerAction;
-  const effectiveTicksPerAction = method.ticksPerAction + (method.bankTimePerAction ?? 0);
+  const stunPenalty = (method.stunTicks && successRate !== undefined) ? method.stunTicks * (1 - successRate) : 0;
+  const effectiveTicksPerAction = method.ticksPerAction + (method.bankTimePerAction ?? 0) + stunPenalty;
   const actionsPerHour = 6000 / effectiveTicksPerAction;
   const profitPerHour = profitPerAction * actionsPerHour;
 

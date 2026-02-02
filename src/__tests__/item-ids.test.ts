@@ -17,9 +17,13 @@ describe('ITEM_NAMES verification', () => {
     const items = await wikiMapping;
     const wikiById = new Map(items.map((i) => [i.id, i.name]));
 
+    // IDs that aren't tradeable on the GE and won't appear in wiki price mapping
+    const NON_GE_ITEMS = new Set([995]); // Coins
+
     const mismatches: string[] = [];
     for (const [idStr, name] of Object.entries(ITEM_NAMES)) {
       const id = Number(idStr);
+      if (NON_GE_ITEMS.has(id)) continue;
       const wikiName = wikiById.get(id);
       if (wikiName === undefined) {
         mismatches.push(`ID ${id} ("${name}") not found in wiki mapping`);

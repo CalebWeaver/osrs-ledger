@@ -7,8 +7,12 @@ import { fletchingMethods } from './fletching';
 import { herbloreMethods } from './herblore';
 import { hunterMethods } from './hunter';
 import { magicMethods } from './magic';
+import { miningMethods } from './mining';
+import { woodcuttingMethods } from './woodcutting';
 import { runecraftMethods } from './runecraft';
 import { smithingMethods } from './smithing';
+import { sailingMethods } from './sailing';
+import { thievingMethods } from './thieving';
 
 export const methods: Method[] = [
   ...fletchingMethods,
@@ -21,6 +25,10 @@ export const methods: Method[] = [
   ...runecraftMethods,
   ...fishingMethods,
   ...hunterMethods,
+  ...miningMethods,
+  ...woodcuttingMethods,
+  ...sailingMethods,
+  ...thievingMethods,
   {
     id: 'enchant-sapphire-ring',
     name: 'Enchant Sapphire Ring',

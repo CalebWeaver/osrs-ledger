@@ -1,10 +1,31 @@
 "use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { PriceMap, ItemMapping } from '@/lib/types';
+import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
 
 const NATURE_RUNE_ID = 561;
 const ALCHS_PER_HOUR = 1200; // 5-tick action
+const ALCH_LS_KEY = 'osrs-ledger-alch-filters';
+
+interface AlchFilters {
+  search?: string;
+  showAll?: boolean;
+  sortKey?: SortKey;
+  sortAsc?: boolean;
+  minProfitPerLimit?: string;
+  minProfitPerHour?: string;
+  maxBuyPrice?: string;
+}
+
+function loadAlchFilters(): AlchFilters {
+  try {
+    const raw = localStorage.getItem(ALCH_LS_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
 
 type SortKey = 'name' | 'alchValue' | 'buyPrice' | 'profitPerAlch' | 'profitPerHour' | 'buyLimit' | 'profitPerLimit';
 
@@ -32,10 +53,20 @@ function formatGp(value: number): string {
 }
 
 export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
-  const [search, setSearch] = useState('');
-  const [showAll, setShowAll] = useState(false);
-  const [sortKey, setSortKey] = useState<SortKey>('profitPerAlch');
-  const [sortAsc, setSortAsc] = useState(false);
+  const saved = useMemo(() => loadAlchFilters(), []);
+  const [search, setSearch] = useState(saved.search ?? '');
+  const [showAll, setShowAll] = useState(saved.showAll ?? false);
+  const [sortKey, setSortKey] = useState<SortKey>(saved.sortKey ?? 'profitPerAlch');
+  const [sortAsc, setSortAsc] = useState(saved.sortAsc ?? false);
+  const [minProfitPerLimit, setMinProfitPerLimit] = useState(saved.minProfitPerLimit ?? '');
+  const [minProfitPerHour, setMinProfitPerHour] = useState(saved.minProfitPerHour ?? '');
+  const [maxBuyPrice, setMaxBuyPrice] = useState(saved.maxBuyPrice ?? '');
+
+  useEffect(() => {
+    localStorage.setItem(ALCH_LS_KEY, JSON.stringify({
+      search, showAll, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice,
+    }));
+  }, [search, showAll, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice]);
 
   const natureRunePrice = prices[NATURE_RUNE_ID]?.avgHighPrice ?? prices[NATURE_RUNE_ID]?.high ?? 0;
 
@@ -71,6 +102,12 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
       const q = search.toLowerCase();
       items = items.filter(e => e.name.toLowerCase().includes(q));
     }
+    const minPL = parseGpInput(minProfitPerLimit);
+    if (minPL) items = items.filter(e => e.profitPerLimit != null && e.profitPerLimit >= minPL);
+    const minPH = parseGpInput(minProfitPerHour);
+    if (minPH) items = items.filter(e => e.profitPerHour >= minPH);
+    const maxBP = parseGpInput(maxBuyPrice);
+    if (maxBP) items = items.filter(e => e.buyPrice <= maxBP);
     items.sort((a, b) => {
       let av: number, bv: number;
       switch (sortKey) {
@@ -86,7 +123,7 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
       return sortAsc ? av - bv : bv - av;
     });
     return items;
-  }, [evaluations, showAll, search, sortKey, sortAsc]);
+  }, [evaluations, showAll, search, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice]);
 
   function handleSort(key: SortKey) {
     if (sortKey === key) {
@@ -122,6 +159,30 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
           />
           Show unprofitable
         </label>
+        <input
+          type="text"
+          inputMode="numeric"
+          className="input-field alch-filter-input"
+          placeholder="Min profit/limit"
+          value={minProfitPerLimit}
+          onChange={e => setMinProfitPerLimit(normalizeGpInput(e.target.value))}
+        />
+        <input
+          type="text"
+          inputMode="numeric"
+          className="input-field alch-filter-input"
+          placeholder="Min profit/hr"
+          value={minProfitPerHour}
+          onChange={e => setMinProfitPerHour(normalizeGpInput(e.target.value))}
+        />
+        <input
+          type="text"
+          inputMode="numeric"
+          className="input-field alch-filter-input"
+          placeholder="Max buy price"
+          value={maxBuyPrice}
+          onChange={e => setMaxBuyPrice(normalizeGpInput(e.target.value))}
+        />
         <span className="alch-count">{filtered.length} items</span>
       </div>
 
