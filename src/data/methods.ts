@@ -1,8 +1,11 @@
 import { Method } from '@/lib/types';
+import { blastFurnaceMethods } from './blast-furnace';
 import { cookingMethods } from './cooking';
 import { craftingMethods } from './crafting';
+import { fishingMethods } from './fishing';
 import { fletchingMethods } from './fletching';
 import { herbloreMethods } from './herblore';
+import { hunterMethods } from './hunter';
 import { magicMethods } from './magic';
 import { runecraftMethods } from './runecraft';
 import { smithingMethods } from './smithing';
@@ -12,9 +15,12 @@ export const methods: Method[] = [
   ...craftingMethods,
   ...herbloreMethods,
   ...smithingMethods,
+  ...blastFurnaceMethods,
   ...cookingMethods,
   ...magicMethods,
   ...runecraftMethods,
+  ...fishingMethods,
+  ...hunterMethods,
   {
     id: 'enchant-sapphire-ring',
     name: 'Enchant Sapphire Ring',

@@ -528,6 +528,10 @@ export const ITEM_NAMES: Record<number, string> = {
   19496: 'Uncut zenyte',
   19501: 'Zenyte amulet (u)',
   19541: 'Zenyte amulet',
+  // Hunter - Chinchompas
+  10033: 'Chinchompa',
+  10034: 'Red chinchompa',
+  11959: 'Black chinchompa',
   // Runecraft
   559: 'Body rune',
   560: 'Death rune',
