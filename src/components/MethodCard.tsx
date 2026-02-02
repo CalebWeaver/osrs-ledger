@@ -163,6 +163,12 @@ export function MethodCard({ evaluation, gpPerXp = 0, onStartChain }: MethodCard
               </div>
             </div>
 
+            {evaluation.successRate !== undefined && evaluation.successRate < 1 && (
+              <div className={`success-rate-notice ${opacityClass}`}>
+                Success: {Math.round(evaluation.successRate * 100)}%
+              </div>
+            )}
+
             <div className={`expanded-footer ${opacityClass}`}>
               <div className="footer-metric">
                 <span className="label-tiny">Cost/Action: </span>

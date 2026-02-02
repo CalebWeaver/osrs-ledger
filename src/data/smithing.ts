@@ -112,7 +112,6 @@ export const smithingMethods: Method[] = [
     requirements: [{ skill: 'Smithing', level: 35 }],
     inputs: [
       { id: 2353, count: 1 }, // Steel bar
-      { id: 4, count: 0 },    // Ammo mould (not consumed)
     ],
     outputs: [{ id: 2, count: 4 }], // Cannonball
     exp: [{ skill: 'Smithing', amount: 25.6 }],

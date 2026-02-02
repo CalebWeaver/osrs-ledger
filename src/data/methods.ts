@@ -102,7 +102,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 555, count: 1 }    // Water rune
     ],
-    outputs: [{ id: 21160, count: 1 }], // Ring of pursuit
+    outputs: [{ id: 21126, count: 1 }], // Ring of pursuit
     exp: [{ skill: 'Magic', amount: 17.5 }],
     ticksPerAction: 4,
   },
@@ -112,7 +112,7 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 7 }],
     inputs: [
-      { id: 21153, count: 1 }, // Opal necklace
+      { id: 21090, count: 1 }, // Opal necklace
       { id: 564, count: 1 },   // Cosmic rune
       { id: 555, count: 1 }    // Water rune
     ],
@@ -126,11 +126,11 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 7 }],
     inputs: [
-      { id: 21098, count: 1 }, // Opal amulet
+      { id: 21108, count: 1 }, // Opal amulet
       { id: 564, count: 1 },   // Cosmic rune
       { id: 555, count: 1 }    // Water rune
     ],
-    outputs: [{ id: 21107, count: 1 }], // Amulet of bounty
+    outputs: [{ id: 21160, count: 1 }], // Amulet of bounty
     exp: [{ skill: 'Magic', amount: 17.5 }],
     ticksPerAction: 4,
   },
@@ -144,7 +144,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 555, count: 1 }    // Water rune
     ],
-    outputs: [{ id: 21126, count: 1 }], // Expeditious bracelet
+    outputs: [{ id: 21177, count: 1 }], // Expeditious bracelet
     exp: [{ skill: 'Magic', amount: 17.5 }],
     ticksPerAction: 4,
   },
@@ -159,7 +159,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 556, count: 3 }    // Air rune
     ],
-    outputs: [{ id: 21162, count: 1 }], // Ring of returning(5)
+    outputs: [{ id: 21129, count: 1 }], // Ring of returning(5)
     exp: [{ skill: 'Magic', amount: 37 }],
     ticksPerAction: 4,
   },
@@ -169,7 +169,7 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 27 }],
     inputs: [
-      { id: 21156, count: 1 }, // Jade necklace
+      { id: 21093, count: 1 }, // Jade necklace
       { id: 564, count: 1 },   // Cosmic rune
       { id: 556, count: 3 }    // Air rune
     ],
@@ -183,11 +183,11 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 27 }],
     inputs: [
-      { id: 21101, count: 1 }, // Jade amulet
+      { id: 21111, count: 1 }, // Jade amulet
       { id: 564, count: 1 },   // Cosmic rune
       { id: 556, count: 3 }    // Air rune
     ],
-    outputs: [{ id: 21110, count: 1 }], // Amulet of chemistry
+    outputs: [{ id: 21163, count: 1 }], // Amulet of chemistry
     exp: [{ skill: 'Magic', amount: 37 }],
     ticksPerAction: 4,
   },
@@ -201,7 +201,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 556, count: 3 }    // Air rune
     ],
-    outputs: [{ id: 21129, count: 1 }], // Flamtaer bracelet
+    outputs: [{ id: 21180, count: 1 }], // Flamtaer bracelet
     exp: [{ skill: 'Magic', amount: 37 }],
     ticksPerAction: 4,
   },
@@ -216,7 +216,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 554, count: 5 }    // Fire rune
     ],
-    outputs: [{ id: 21165, count: 1 }], // Efaritay's aid
+    outputs: [{ id: 21140, count: 1 }], // Efaritay's aid
     exp: [{ skill: 'Magic', amount: 59 }],
     ticksPerAction: 4,
   },
@@ -226,11 +226,11 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 49 }],
     inputs: [
-      { id: 21159, count: 1 }, // Topaz necklace
+      { id: 21096, count: 1 }, // Topaz necklace
       { id: 564, count: 1 },   // Cosmic rune
       { id: 554, count: 5 }    // Fire rune
     ],
-    outputs: [{ id: 21169, count: 1 }], // Necklace of faith
+    outputs: [{ id: 21157, count: 1 }], // Necklace of faith
     exp: [{ skill: 'Magic', amount: 59 }],
     ticksPerAction: 4,
   },
@@ -240,11 +240,11 @@ export const methods: Method[] = [
     category: 'Magic',
     requirements: [{ skill: 'Magic', level: 49 }],
     inputs: [
-      { id: 21104, count: 1 }, // Topaz amulet
+      { id: 21114, count: 1 }, // Topaz amulet
       { id: 564, count: 1 },   // Cosmic rune
       { id: 554, count: 5 }    // Fire rune
     ],
-    outputs: [{ id: 21113, count: 1 }], // Burning amulet(5)
+    outputs: [{ id: 21166, count: 1 }], // Burning amulet(5)
     exp: [{ skill: 'Magic', amount: 59 }],
     ticksPerAction: 4,
   },
@@ -258,7 +258,7 @@ export const methods: Method[] = [
       { id: 564, count: 1 },   // Cosmic rune
       { id: 554, count: 5 }    // Fire rune
     ],
-    outputs: [{ id: 21132, count: 1 }], // Bracelet of slaughter
+    outputs: [{ id: 21183, count: 1 }], // Bracelet of slaughter
     exp: [{ skill: 'Magic', amount: 59 }],
     ticksPerAction: 4,
   },
@@ -331,20 +331,6 @@ export const methods: Method[] = [
       { id: 554, count: 5 }   // Fire rune
     ],
     outputs: [{ id: 2568, count: 1 }], // Ring of forging
-    exp: [{ skill: 'Magic', amount: 59 }],
-    ticksPerAction: 4,
-  },
-  {
-    id: 'enchant-ruby-necklace',
-    name: 'Enchant Ruby Necklace',
-    category: 'Magic',
-    requirements: [{ skill: 'Magic', level: 49 }],
-    inputs: [
-      { id: 1660, count: 1 }, // Ruby necklace
-      { id: 564, count: 1 },  // Cosmic rune
-      { id: 554, count: 5 }   // Fire rune
-    ],
-    outputs: [{ id: 11194, count: 1 }], // Digsite pendant (5)
     exp: [{ skill: 'Magic', amount: 59 }],
     ticksPerAction: 4,
   },
@@ -1005,7 +991,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 6 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 557, count: 2 },   // Earth rune
       { id: 563, count: 1 }    // Law rune
     ],
@@ -1021,7 +1006,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 17 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 557, count: 1 },   // Earth rune
       { id: 555, count: 1 },   // Water rune
       { id: 563, count: 1 }    // Law rune
@@ -1038,7 +1022,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 23 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 557, count: 1 },   // Earth rune
       { id: 554, count: 1 },   // Fire rune
       { id: 563, count: 1 }    // Law rune
@@ -1055,7 +1038,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 28 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 563, count: 1 },   // Law rune
       { id: 558, count: 2 }    // Mind rune
     ],
@@ -1071,7 +1053,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 40 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 563, count: 1 },   // Law rune
       { id: 566, count: 2 }    // Soul rune
     ],
@@ -1087,7 +1068,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 48 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 557, count: 1 },   // Earth rune
       { id: 563, count: 1 },   // Law rune
       { id: 566, count: 1 }    // Soul rune
@@ -1104,7 +1084,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 61 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 563, count: 2 },   // Law rune
       { id: 566, count: 2 }    // Soul rune
     ],
@@ -1120,7 +1099,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 65 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 563, count: 1 },   // Law rune
       { id: 561, count: 1 },   // Nature rune
       { id: 566, count: 1 }    // Soul rune
@@ -1137,7 +1115,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 71 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 565, count: 1 },   // Blood rune
       { id: 563, count: 1 },   // Law rune
       { id: 566, count: 1 }    // Soul rune
@@ -1154,7 +1131,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 83 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 565, count: 1 },   // Blood rune
       { id: 563, count: 2 },   // Law rune
       { id: 566, count: 2 }    // Soul rune
@@ -1171,7 +1147,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Magic', level: 90 }],
     quests: ['Client of Kourend'],
     inputs: [
-      { id: 13446, count: 1 }, // Dark essence block
       { id: 565, count: 2 },   // Blood rune
       { id: 563, count: 2 },   // Law rune
       { id: 566, count: 2 }    // Soul rune
@@ -1685,7 +1660,7 @@ export const methods: Method[] = [
       { id: 1609, count: 1 }, // Opal
       { id: 1597, count: 0 }  // Necklace mould
     ],
-    outputs: [{ id: 21153, count: 1 }], // Opal necklace
+    outputs: [{ id: 21090, count: 1 }], // Opal necklace
     exp: [{ skill: 'Crafting', amount: 35 }],
     ticksPerAction: 4.6,
     notes: 'Requires Necklace Mould'
@@ -1700,7 +1675,7 @@ export const methods: Method[] = [
       { id: 1611, count: 1 }, // Jade
       { id: 1597, count: 0 }  // Necklace mould
     ],
-    outputs: [{ id: 21156, count: 1 }], // Jade necklace
+    outputs: [{ id: 21093, count: 1 }], // Jade necklace
     exp: [{ skill: 'Crafting', amount: 54 }],
     ticksPerAction: 4.6,
     notes: 'Requires Necklace Mould'
@@ -1715,7 +1690,7 @@ export const methods: Method[] = [
       { id: 1613, count: 1 }, // Red topaz
       { id: 1597, count: 0 }  // Necklace mould
     ],
-    outputs: [{ id: 21159, count: 1 }], // Topaz necklace
+    outputs: [{ id: 21096, count: 1 }], // Topaz necklace
     exp: [{ skill: 'Crafting', amount: 70 }],
     ticksPerAction: 4.6,
     notes: 'Requires Necklace Mould'
@@ -1775,7 +1750,7 @@ export const methods: Method[] = [
       { id: 1609, count: 1 }, // Opal
       { id: 1595, count: 0 }  // Amulet mould
     ],
-    outputs: [{ id: 21090, count: 1 }], // Opal amulet (u)
+    outputs: [{ id: 21099, count: 1 }], // Opal amulet (u)
     exp: [{ skill: 'Crafting', amount: 55 }],
     ticksPerAction: 4.6,
     notes: 'Requires Amulet Mould'
@@ -1790,7 +1765,7 @@ export const methods: Method[] = [
       { id: 1611, count: 1 }, // Jade
       { id: 1595, count: 0 }  // Amulet mould
     ],
-    outputs: [{ id: 21093, count: 1 }], // Jade amulet (u)
+    outputs: [{ id: 21102, count: 1 }], // Jade amulet (u)
     exp: [{ skill: 'Crafting', amount: 70 }],
     ticksPerAction: 4.6,
     notes: 'Requires Amulet Mould'
@@ -1805,7 +1780,7 @@ export const methods: Method[] = [
       { id: 1613, count: 1 }, // Red topaz
       { id: 1595, count: 0 }  // Amulet mould
     ],
-    outputs: [{ id: 21096, count: 1 }], // Topaz amulet (u)
+    outputs: [{ id: 21105, count: 1 }], // Topaz amulet (u)
     exp: [{ skill: 'Crafting', amount: 80 }],
     ticksPerAction: 4.6,
     notes: 'Requires Amulet Mould'
@@ -1832,7 +1807,6 @@ export const methods: Method[] = [
     requirements: [{ skill: 'Crafting', level: 17 }],
     inputs: [
       { id: 2355, count: 1 }, // Silver bar
-      { id: 1594, count: 0 }  // Unholy mould (not consumed)
     ],
     outputs: [{ id: 1720, count: 1 }], // Unstrung emblem
     exp: [{ skill: 'Crafting', amount: 50 }],

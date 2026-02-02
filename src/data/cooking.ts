@@ -10,6 +10,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 315, count: 1 }],   // Shrimps
     exp: [{ skill: 'Cooking', amount: 30 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 128, high: 512 },
   },
   {
     id: 'cook-chicken',
@@ -20,6 +21,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 2140, count: 1 }],   // Cooked chicken
     exp: [{ skill: 'Cooking', amount: 30 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 128, high: 512 },
   },
   {
     id: 'cook-sardine',
@@ -30,6 +32,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 325, count: 1 }],    // Sardine
     exp: [{ skill: 'Cooking', amount: 40 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 118, high: 492 },
   },
   {
     id: 'cook-herring',
@@ -40,6 +43,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 347, count: 1 }],    // Herring
     exp: [{ skill: 'Cooking', amount: 50 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 108, high: 472 },
   },
   {
     id: 'cook-mackerel',
@@ -50,6 +54,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 355, count: 1 }],    // Mackerel
     exp: [{ skill: 'Cooking', amount: 60 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 98, high: 452 },
   },
   {
     id: 'cook-trout',
@@ -60,6 +65,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 333, count: 1 }],    // Trout
     exp: [{ skill: 'Cooking', amount: 70 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 88, high: 432 },
   },
   {
     id: 'cook-cod',
@@ -70,6 +76,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 339, count: 1 }],    // Cod
     exp: [{ skill: 'Cooking', amount: 75 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 88, high: 432 },
   },
   {
     id: 'cook-pike',
@@ -80,6 +87,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 351, count: 1 }],    // Pike
     exp: [{ skill: 'Cooking', amount: 80 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 78, high: 412 },
   },
   {
     id: 'cook-salmon',
@@ -90,6 +98,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 329, count: 1 }],    // Salmon
     exp: [{ skill: 'Cooking', amount: 90 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 68, high: 392 },
   },
   {
     id: 'cook-tuna',
@@ -100,6 +109,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 361, count: 1 }],    // Tuna
     exp: [{ skill: 'Cooking', amount: 100 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 58, high: 372 },
   },
   {
     id: 'cook-lobster',
@@ -110,6 +120,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 379, count: 1 }],    // Lobster
     exp: [{ skill: 'Cooking', amount: 120 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 38, high: 332 },
   },
   {
     id: 'cook-swordfish',
@@ -120,6 +131,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 373, count: 1 }],    // Swordfish
     exp: [{ skill: 'Cooking', amount: 140 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 30, high: 310 },
   },
   {
     id: 'cook-monkfish',
@@ -130,6 +142,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 7946, count: 1 }],   // Monkfish
     exp: [{ skill: 'Cooking', amount: 150 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 13, high: 280 },
   },
   {
     id: 'cook-karambwan',
@@ -140,6 +153,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 3144, count: 1 }],   // Cooked karambwan
     exp: [{ skill: 'Cooking', amount: 190 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 70, high: 255 },
   },
   {
     id: 'cook-shark',
@@ -150,6 +164,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 385, count: 1 }],    // Shark
     exp: [{ skill: 'Cooking', amount: 210 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 1, high: 232 },
   },
   {
     id: 'cook-sea-turtle',
@@ -160,6 +175,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 397, count: 1 }],    // Sea turtle
     exp: [{ skill: 'Cooking', amount: 211.3 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 1, high: 222 },
   },
   {
     id: 'cook-manta-ray',
@@ -170,6 +186,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 391, count: 1 }],    // Manta ray
     exp: [{ skill: 'Cooking', amount: 216.2 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 1, high: 222 },
   },
   {
     id: 'cook-anglerfish',
@@ -180,6 +197,7 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 13441, count: 1 }],  // Anglerfish
     exp: [{ skill: 'Cooking', amount: 230 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 1, high: 220 },
   },
   {
     id: 'cook-dark-crab',
@@ -190,5 +208,6 @@ export const cookingMethods: Method[] = [
     outputs: [{ id: 11936, count: 1 }],  // Dark crab
     exp: [{ skill: 'Cooking', amount: 215 }],
     ticksPerAction: 4,
+    successRate: { skill: 'Cooking', low: 10, high: 222 },
   },
 ];

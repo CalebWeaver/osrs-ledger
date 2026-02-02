@@ -421,9 +421,9 @@ export const magicMethods: Method[] = [
       { id: 557, count: 10 },  // Earth rune
       { id: 555, count: 5 },   // Water rune
       { id: 9075, count: 2 },  // Astral rune
-      { id: 21090, count: 1 }, // Opal amulet (u)
+      { id: 21099, count: 1 }, // Opal amulet (u)
     ],
-    outputs: [{ id: 21098, count: 1 }], // Opal amulet
+    outputs: [{ id: 21108, count: 1 }], // Opal amulet
     exp: [{ skill: 'Magic', amount: 83 }],
     ticksPerAction: 3,
     notes: 'Lunar spellbook.',
@@ -438,9 +438,9 @@ export const magicMethods: Method[] = [
       { id: 557, count: 10 },  // Earth rune
       { id: 555, count: 5 },   // Water rune
       { id: 9075, count: 2 },  // Astral rune
-      { id: 21093, count: 1 }, // Jade amulet (u)
+      { id: 21102, count: 1 }, // Jade amulet (u)
     ],
-    outputs: [{ id: 21101, count: 1 }], // Jade amulet
+    outputs: [{ id: 21111, count: 1 }], // Jade amulet
     exp: [{ skill: 'Magic', amount: 83 }],
     ticksPerAction: 3,
     notes: 'Lunar spellbook.',
@@ -455,9 +455,9 @@ export const magicMethods: Method[] = [
       { id: 557, count: 10 },  // Earth rune
       { id: 555, count: 5 },   // Water rune
       { id: 9075, count: 2 },  // Astral rune
-      { id: 21096, count: 1 }, // Topaz amulet (u)
+      { id: 21105, count: 1 }, // Topaz amulet (u)
     ],
-    outputs: [{ id: 21104, count: 1 }], // Topaz amulet
+    outputs: [{ id: 21114, count: 1 }], // Topaz amulet
     exp: [{ skill: 'Magic', amount: 83 }],
     ticksPerAction: 3,
     notes: 'Lunar spellbook.',

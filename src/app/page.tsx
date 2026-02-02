@@ -1,5 +1,4 @@
 import { fetchPrices } from '@/lib/price-service';
-import { methods } from '@/data/methods';
 import { ClientPage } from '@/components/ClientPage';
 import { HelpButton } from '@/components/HelpModal';
 
@@ -18,7 +17,7 @@ export default async function Home() {
         <p>Live profitability based on real-time GE prices.</p>
       </header>
 
-      <ClientPage prices={prices} methods={methods} />
+      <ClientPage prices={prices} />
     </main>
   );
 }

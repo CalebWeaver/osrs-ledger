@@ -1,5 +1,6 @@
 import { Method } from '@/lib/types';
 
+
 export const craftingMethods: Method[] = [
   // Leather (regular) - requires needle + thread consumed
   {
@@ -460,6 +461,7 @@ export const craftingMethods: Method[] = [
     outputs: [{ id: 1609, count: 1 }], // Opal
     exp: [{ skill: 'Crafting', amount: 15 }],
     ticksPerAction: 3,
+    successRate: { skill: 'Crafting', low: 129, high: 251 },
   },
   {
     id: 'cut-jade',
@@ -470,6 +472,7 @@ export const craftingMethods: Method[] = [
     outputs: [{ id: 1611, count: 1 }], // Jade
     exp: [{ skill: 'Crafting', amount: 20 }],
     ticksPerAction: 3,
+    successRate: { skill: 'Crafting', low: 101, high: 246 },
   },
   {
     id: 'cut-red-topaz',
@@ -480,6 +483,7 @@ export const craftingMethods: Method[] = [
     outputs: [{ id: 1613, count: 1 }], // Red topaz
     exp: [{ skill: 'Crafting', amount: 25 }],
     ticksPerAction: 3,
+    successRate: { skill: 'Crafting', low: 91, high: 241 },
   },
   {
     id: 'cut-sapphire',

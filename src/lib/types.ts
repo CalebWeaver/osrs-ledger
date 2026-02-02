@@ -31,6 +31,7 @@ export interface Method {
   bankTimePerAction?: number; // Extra ticks per action for banking overhead (travel, banking, etc.)
   notes?: string;
   quests?: string[];
+  successRate?: { skill: Skill; low: number; high: number };
 }
 
 export interface PriceData {
@@ -61,4 +62,5 @@ export interface MethodEvaluation {
   expPerHour: { skill: Skill; amount: number }[];
   totalExpPerHour: number;
   actionsPerHour: number;
+  successRate?: number;
 }

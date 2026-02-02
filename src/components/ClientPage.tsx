@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Method, PriceMap, Skill, MethodEvaluation } from '@/lib/types';
 import { evaluateMethod } from '@/lib/evaluator';
+import { methods } from '@/data/methods';
 import { lookupHiscores } from '@/lib/hiscores';
 import { MethodCard } from './MethodCard';
 import { SkillInput } from './SkillInput';
@@ -33,7 +34,6 @@ const ALL_QUESTS = [
 
 interface ClientPageProps {
   prices: PriceMap;
-  methods: Method[];
 }
 
 const LS_KEY = 'osrs-ledger-settings';
@@ -64,7 +64,7 @@ function saveSettings(s: SavedSettings) {
 
 type SidebarTab = 'levels' | 'quests';
 
-export function ClientPage({ prices, methods }: ClientPageProps) {
+export function ClientPage({ prices }: ClientPageProps) {
   const [playerStats, setPlayerStats] = useState<Record<Skill, number>>({ ...DEFAULT_STATS });
   const [username, setUsername] = useState<string>('');
   const [lookupError, setLookupError] = useState<string>('');
