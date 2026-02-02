@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { PriceMap, ItemMapping } from '@/lib/types';
 import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
+import { InfoTip } from './InfoTip';
 
 const NATURE_RUNE_ID = 561;
 const ALCHS_PER_HOUR = 1200; // 5-tick action
@@ -159,30 +160,39 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
           />
           Show unprofitable
         </label>
-        <input
-          type="text"
-          inputMode="numeric"
-          className="input-field alch-filter-input"
-          placeholder="Min profit/limit"
-          value={minProfitPerLimit}
-          onChange={e => setMinProfitPerLimit(normalizeGpInput(e.target.value))}
-        />
-        <input
-          type="text"
-          inputMode="numeric"
-          className="input-field alch-filter-input"
-          placeholder="Min profit/hr"
-          value={minProfitPerHour}
-          onChange={e => setMinProfitPerHour(normalizeGpInput(e.target.value))}
-        />
-        <input
-          type="text"
-          inputMode="numeric"
-          className="input-field alch-filter-input"
-          placeholder="Max buy price"
-          value={maxBuyPrice}
-          onChange={e => setMaxBuyPrice(normalizeGpInput(e.target.value))}
-        />
+        <span className="alch-filter-with-info">
+          <input
+            type="text"
+            inputMode="numeric"
+            className="input-field alch-filter-input"
+            placeholder="Min profit/limit"
+            value={minProfitPerLimit}
+            onChange={e => setMinProfitPerLimit(normalizeGpInput(e.target.value))}
+          />
+          <InfoTip text="Minimum total profit per GE buy limit cycle (profit per alch × buy limit). Filters out items that aren't worth buying in bulk every 4 hours." />
+        </span>
+        <span className="alch-filter-with-info">
+          <input
+            type="text"
+            inputMode="numeric"
+            className="input-field alch-filter-input"
+            placeholder="Min profit/hr"
+            value={minProfitPerHour}
+            onChange={e => setMinProfitPerHour(normalizeGpInput(e.target.value))}
+          />
+          <InfoTip text="Minimum profit per hour (profit per alch × 1,200 alchs/hr). Filters out items with low GP/hr returns." />
+        </span>
+        <span className="alch-filter-with-info">
+          <input
+            type="text"
+            inputMode="numeric"
+            className="input-field alch-filter-input"
+            placeholder="Max buy price"
+            value={maxBuyPrice}
+            onChange={e => setMaxBuyPrice(normalizeGpInput(e.target.value))}
+          />
+          <InfoTip text="Maximum GE buy price per item. Useful for finding items to alch when you have limited starting gold." />
+        </span>
         <span className="alch-count">{filtered.length} items</span>
       </div>
 

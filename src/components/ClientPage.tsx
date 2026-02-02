@@ -10,6 +10,7 @@ import { SkillInput } from './SkillInput';
 import { CraftingChain } from './CraftingChain';
 import { HighAlchTab } from './HighAlchTab';
 import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
+import { InfoTip } from './InfoTip';
 
 const ALL_SKILLS: Skill[] = [
   'Attack', 'Strength', 'Defence', 'Ranged', 'Prayer', 'Magic', 'Runecraft',
@@ -357,7 +358,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         </div>
 
         <div className="control-group">
-          <label className="input-label">Available Gold (GP/hr cost limit)</label>
+          <label className="input-label">Available Gold (GP/hr cost limit)<InfoTip text="Hides methods that cost more than this amount per hour in inputs. If you only have 1M to spend, set this to 1M to filter out expensive methods." /></label>
           <input
             type="text"
             inputMode="numeric"
@@ -369,7 +370,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         </div>
 
         <div className="control-group">
-          <label className="input-label">Min Output Volume (24h)</label>
+          <label className="input-label">Min Output Volume (24h)<InfoTip text="Hides methods whose outputs trade fewer than this many units per day on the Grand Exchange. Filters out items that may be hard to sell quickly." /></label>
           <input
             type="number"
             className="input-field w-full"
@@ -380,7 +381,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         </div>
 
 <div className="control-group">
-          <label className="input-label">XP Value (GP per XP)</label>
+          <label className="input-label">XP Value (GP per XP)<InfoTip text="Assigns a GP value to each XP gained. Methods are sorted by profit + (XP/hr × this value), so XP-rich methods rank higher. For example, setting this to 5 means 1 XP is worth 5 GP when ranking methods." /></label>
           <input
             type="number"
             className="input-field w-full"
