@@ -1,4 +1,4 @@
-import { PriceMap } from './types';
+import { PriceMap, ItemMapping } from './types';
 
 const WIKI_24H_URL = 'https://prices.runescape.wiki/api/v1/osrs/24h';
 const WIKI_LATEST_URL = 'https://prices.runescape.wiki/api/v1/osrs/latest';
@@ -42,4 +42,15 @@ export async function fetchPrices(): Promise<PriceMap> {
     console.error('Error fetching prices:', error);
     throw error;
   }
+}
+
+const WIKI_MAPPING_URL = 'https://prices.runescape.wiki/api/v1/osrs/mapping';
+
+export async function fetchMapping(): Promise<ItemMapping[]> {
+  const headers = { 'User-Agent': USER_AGENT };
+  const res = await fetch(WIKI_MAPPING_URL, { headers, next: { revalidate: false } });
+  if (!res.ok) {
+    throw new Error(`Failed to fetch mapping: ${res.status} ${res.statusText}`);
+  }
+  return res.json();
 }

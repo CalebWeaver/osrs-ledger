@@ -47,6 +47,15 @@ export interface PriceData {
 
 export type PriceMap = Record<number, PriceData>;
 
+export interface ItemMapping {
+  id: number;
+  name: string;
+  highalch: number | null;
+  limit: number | null;
+  members: boolean;
+  examine: string;
+}
+
 export interface MethodEvaluation {
   methodId: string;
   methodName: string;

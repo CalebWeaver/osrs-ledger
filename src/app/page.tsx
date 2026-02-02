@@ -1,10 +1,10 @@
-import { fetchPrices } from '@/lib/price-service';
+import { fetchPrices, fetchMapping } from '@/lib/price-service';
 import { ClientPage } from '@/components/ClientPage';
 import { HelpButton } from '@/components/HelpModal';
 
 // Server Component
 export default async function Home() {
-  const prices = await fetchPrices();
+  const [prices, mapping] = await Promise.all([fetchPrices(), fetchMapping()]);
 
   // We pass data to a Client Component to handle interactivity (level input)
   return (
@@ -17,7 +17,7 @@ export default async function Home() {
         <p>Live profitability based on real-time GE prices.</p>
       </header>
 
-      <ClientPage prices={prices} />
+      <ClientPage prices={prices} mapping={mapping} />
     </main>
   );
 }

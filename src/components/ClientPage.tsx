@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Method, PriceMap, Skill, MethodEvaluation } from '@/lib/types';
+import { Method, PriceMap, Skill, MethodEvaluation, ItemMapping } from '@/lib/types';
 import { evaluateMethod } from '@/lib/evaluator';
 import { methods } from '@/data/methods';
 import { lookupHiscores } from '@/lib/hiscores';
 import { MethodCard } from './MethodCard';
 import { SkillInput } from './SkillInput';
 import { CraftingChain } from './CraftingChain';
+import { HighAlchTab } from './HighAlchTab';
 
 const ALL_SKILLS: Skill[] = [
   'Attack', 'Strength', 'Defence', 'Ranged', 'Prayer', 'Magic', 'Runecraft',
@@ -34,7 +35,10 @@ const ALL_QUESTS = [
 
 interface ClientPageProps {
   prices: PriceMap;
+  mapping: ItemMapping[];
 }
+
+type AppTab = 'methods' | 'highalch';
 
 const LS_KEY = 'osrs-ledger-settings';
 
@@ -47,6 +51,7 @@ interface SavedSettings {
   minOutputVolume?: string;
   gpPerXp?: string;
   completedQuests?: string[];
+  activeTab?: AppTab;
 }
 
 function loadSettings(): SavedSettings {
@@ -64,7 +69,7 @@ function saveSettings(s: SavedSettings) {
 
 type SidebarTab = 'levels' | 'quests';
 
-export function ClientPage({ prices }: ClientPageProps) {
+export function ClientPage({ prices, mapping }: ClientPageProps) {
   const [playerStats, setPlayerStats] = useState<Record<Skill, number>>({ ...DEFAULT_STATS });
   const [username, setUsername] = useState<string>('');
   const [lookupError, setLookupError] = useState<string>('');
@@ -78,6 +83,7 @@ export function ClientPage({ prices }: ClientPageProps) {
   const [completedQuests, setCompletedQuests] = useState<Set<string>>(new Set());
   const [hydrated, setHydrated] = useState(false);
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>('levels');
+  const [activeTab, setActiveTab] = useState<AppTab>('methods');
 
   // Restore saved settings on mount
   useEffect(() => {
@@ -98,6 +104,7 @@ export function ClientPage({ prices }: ClientPageProps) {
     if (s.minOutputVolume !== undefined) setMinOutputVolume(s.minOutputVolume);
     if (s.gpPerXp !== undefined) setGpPerXp(s.gpPerXp);
     if (s.completedQuests) setCompletedQuests(new Set(s.completedQuests));
+    if (s.activeTab === 'methods' || s.activeTab === 'highalch') setActiveTab(s.activeTab);
     setHydrated(true);
   }, []);
 
@@ -106,9 +113,9 @@ export function ClientPage({ prices }: ClientPageProps) {
     if (!hydrated) return;
     saveSettings({
       username, playerStats, showUnavailable, availableGold, sortBy,
-      minOutputVolume, gpPerXp, completedQuests: Array.from(completedQuests),
+      minOutputVolume, gpPerXp, completedQuests: Array.from(completedQuests), activeTab,
     });
-  }, [hydrated, username, playerStats, showUnavailable, availableGold, sortBy, minOutputVolume, gpPerXp, completedQuests]);
+  }, [hydrated, username, playerStats, showUnavailable, availableGold, sortBy, minOutputVolume, gpPerXp, completedQuests, activeTab]);
 
   async function lookupPlayer(name: string) {
     const trimmed = name.trim();
@@ -199,7 +206,26 @@ export function ClientPage({ prices }: ClientPageProps) {
   };
 
   return (
-    <div className="content-wrapper">
+    <>
+      <div className="top-tabs">
+        <button
+          className={`top-tab ${activeTab === 'methods' ? 'top-tab--active' : ''}`}
+          onClick={() => setActiveTab('methods')}
+        >
+          Methods
+        </button>
+        <button
+          className={`top-tab ${activeTab === 'highalch' ? 'top-tab--active' : ''}`}
+          onClick={() => setActiveTab('highalch')}
+        >
+          High Alch
+        </button>
+      </div>
+
+      {activeTab === 'highalch' ? (
+        <HighAlchTab prices={prices} mapping={mapping} />
+      ) : (
+      <div className="content-wrapper">
       <div className="main-column">
         {chain.length > 0 && (
           <CraftingChain
@@ -351,5 +377,7 @@ export function ClientPage({ prices }: ClientPageProps) {
         </div>
       </section>
     </div>
+      )}
+    </>
   );
 }
