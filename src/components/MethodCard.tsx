@@ -37,7 +37,7 @@ export function MethodCard({ evaluation, gpPerXp = 0, onStartChain }: MethodCard
           <div className={`row-section outputs-preview ${opacityClass}`}>
             {evaluation.outputRevenues.map((item) => (
               <div key={`out-prev-${item.id}`} className="mini-icon-wrapper" title={item.name}>
-                <img src={iconUrl(item.id)} alt={item.name} className="mini-icon" />
+                <img src={iconUrl(item.id)} alt={item.name} className="mini-icon" referrerPolicy="no-referrer" />
               </div>
             ))}
           </div>
@@ -117,7 +117,7 @@ export function MethodCard({ evaluation, gpPerXp = 0, onStartChain }: MethodCard
                   <div key={`in-${item.id}`} className="item-node">
                     {idx > 0 && <span className="operator">+</span>}
                     <a href={wikiUrl(item.name)} target="_blank" rel="noopener noreferrer" className="item-icon-wrapper" title={`${item.count}x ${item.name}`} onClick={(e) => e.stopPropagation()}>
-                      <img src={iconUrl(item.id)} alt={item.name} className="item-icon" />
+                      <img src={iconUrl(item.id)} alt={item.name} className="item-icon" referrerPolicy="no-referrer" />
                       <span className="item-count">{item.count}</span>
                     </a>
                   </div>
@@ -129,7 +129,7 @@ export function MethodCard({ evaluation, gpPerXp = 0, onStartChain }: MethodCard
                   <div key={`out-${item.id}`} className="item-node">
                     {idx > 0 && <span className="operator">+</span>}
                     <a href={wikiUrl(item.name)} target="_blank" rel="noopener noreferrer" className="item-icon-wrapper" title={`${item.count}x ${item.name}`} onClick={(e) => e.stopPropagation()}>
-                      <img src={iconUrl(item.id)} alt={item.name} className="item-icon" />
+                      <img src={iconUrl(item.id)} alt={item.name} className="item-icon" referrerPolicy="no-referrer" />
                       <span className="item-count">{item.count}</span>
                     </a>
                   </div>

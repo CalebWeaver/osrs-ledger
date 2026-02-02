@@ -14,7 +14,7 @@ const ALL_SKILLS: Skill[] = [
   'Attack', 'Strength', 'Defence', 'Ranged', 'Prayer', 'Magic', 'Runecraft',
   'Construction', 'Hitpoints', 'Agility', 'Herblore', 'Thieving', 'Crafting',
   'Fletching', 'Slayer', 'Hunter', 'Mining', 'Smithing', 'Fishing', 'Cooking',
-  'Firemaking', 'Woodcutting', 'Farming',
+  'Firemaking', 'Woodcutting', 'Farming', 'Sailing',
 ];
 
 const DEFAULT_STATS: Record<Skill, number> = {
@@ -22,7 +22,7 @@ const DEFAULT_STATS: Record<Skill, number> = {
   'Magic': 1, 'Runecraft': 1, 'Construction': 1, 'Hitpoints': 10,
   'Agility': 1, 'Herblore': 1, 'Thieving': 1, 'Crafting': 1, 'Fletching': 1,
   'Slayer': 1, 'Hunter': 1, 'Mining': 1, 'Smithing': 1, 'Fishing': 1,
-  'Cooking': 1, 'Firemaking': 1, 'Woodcutting': 1, 'Farming': 1,
+  'Cooking': 1, 'Firemaking': 1, 'Woodcutting': 1, 'Farming': 1, 'Sailing': 1,
 };
 
 const ALL_QUESTS = [

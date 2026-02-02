@@ -47,7 +47,7 @@ export function AbbreviatedMethodCard({ evaluation, onInputClick, onRemove }: Ab
               onClick={(e) => onInputClick(e, item.id)}
               title={`Add source for: ${item.name}`}
             >
-              <img src={iconUrl(item.id)} alt={item.name} />
+              <img src={iconUrl(item.id)} alt={item.name} referrerPolicy="no-referrer" />
 
               {/* Plus overlay on hover */}
               <div className="add-overlay">
@@ -64,7 +64,7 @@ export function AbbreviatedMethodCard({ evaluation, onInputClick, onRemove }: Ab
         <div className="item-column">
           {evaluation.outputRevenues.map((item) => (
             <div key={`out-${item.id}`} className="item-slot" title={`${item.count}x ${item.name}`}>
-              <img src={iconUrl(item.id)} alt={item.name} />
+              <img src={iconUrl(item.id)} alt={item.name} referrerPolicy="no-referrer" />
               <div className="count-badge">
                 {item.count}
               </div>

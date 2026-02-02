@@ -148,6 +148,7 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
                     alt={e.name}
                     className="alch-item-icon"
                     loading="lazy"
+                    referrerPolicy="no-referrer"
                   />
                   {e.name}
                 </td>

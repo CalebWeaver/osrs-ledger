@@ -11,29 +11,30 @@ interface SkillInputProps {
 }
 
 const SKILL_ICONS: Partial<Record<Skill, string>> = {
-  'Magic': 'https://oldschool.runescape.wiki/images/Magic_icon_%28detail%29.png?a30e2',
-  'Crafting': 'https://oldschool.runescape.wiki/images/Crafting_icon_%28detail%29.png?a30e2',
-  'Attack': 'https://oldschool.runescape.wiki/images/Attack_icon_%28detail%29.png?a30e2',
-  'Strength': 'https://oldschool.runescape.wiki/images/Strength_icon_%28detail%29.png?a30e2',
-  'Defence': 'https://oldschool.runescape.wiki/images/Defence_icon_%28detail%29.png?a30e2',
-  'Ranged': 'https://oldschool.runescape.wiki/images/Ranged_icon_%28detail%29.png?a30e2',
-  'Prayer': 'https://oldschool.runescape.wiki/images/Prayer_icon_%28detail%29.png?a30e2',
-  'Runecraft': 'https://oldschool.runescape.wiki/images/Runecraft_icon_%28detail%29.png?a30e2',
-  'Construction': 'https://oldschool.runescape.wiki/images/Construction_icon_%28detail%29.png?a30e2',
-  'Hitpoints': 'https://oldschool.runescape.wiki/images/Hitpoints_icon_%28detail%29.png?a30e2',
-  'Agility': 'https://oldschool.runescape.wiki/images/Agility_icon_%28detail%29.png?a30e2',
-  'Herblore': 'https://oldschool.runescape.wiki/images/Herblore_icon_%28detail%29.png?a30e2',
-  'Thieving': 'https://oldschool.runescape.wiki/images/Thieving_icon_%28detail%29.png?a30e2',
-  'Fletching': 'https://oldschool.runescape.wiki/images/Fletching_icon_%28detail%29.png?a30e2',
-  'Slayer': 'https://oldschool.runescape.wiki/images/Slayer_icon_%28detail%29.png?a30e2',
-  'Hunter': 'https://oldschool.runescape.wiki/images/Hunter_icon_%28detail%29.png?a30e2',
-  'Mining': 'https://oldschool.runescape.wiki/images/Mining_icon_%28detail%29.png?a30e2',
-  'Smithing': 'https://oldschool.runescape.wiki/images/Smithing_icon_%28detail%29.png?a30e2',
-  'Fishing': 'https://oldschool.runescape.wiki/images/Fishing_icon_%28detail%29.png?a30e2',
-  'Cooking': 'https://oldschool.runescape.wiki/images/Cooking_icon_%28detail%29.png?a30e2',
-  'Firemaking': 'https://oldschool.runescape.wiki/images/Firemaking_icon_%28detail%29.png?a30e2',
-  'Woodcutting': 'https://oldschool.runescape.wiki/images/Woodcutting_icon_%28detail%29.png?a30e2',
-  'Farming': 'https://oldschool.runescape.wiki/images/Farming_icon_%28detail%29.png?a30e2',
+  'Magic': '/icons/skills/Magic_icon.png',
+  'Crafting': '/icons/skills/Crafting_icon.png',
+  'Attack': '/icons/skills/Attack_icon.png',
+  'Strength': '/icons/skills/Strength_icon.png',
+  'Defence': '/icons/skills/Defence_icon.png',
+  'Ranged': '/icons/skills/Ranged_icon.png',
+  'Prayer': '/icons/skills/Prayer_icon.png',
+  'Runecraft': '/icons/skills/Runecraft_icon.png',
+  'Construction': '/icons/skills/Construction_icon.png',
+  'Hitpoints': '/icons/skills/Hitpoints_icon.png',
+  'Agility': '/icons/skills/Agility_icon.png',
+  'Herblore': '/icons/skills/Herblore_icon.png',
+  'Thieving': '/icons/skills/Thieving_icon.png',
+  'Fletching': '/icons/skills/Fletching_icon.png',
+  'Slayer': '/icons/skills/Slayer_icon.png',
+  'Hunter': '/icons/skills/Hunter_icon.png',
+  'Mining': '/icons/skills/Mining_icon.png',
+  'Smithing': '/icons/skills/Smithing_icon.png',
+  'Fishing': '/icons/skills/Fishing_icon.png',
+  'Cooking': '/icons/skills/Cooking_icon.png',
+  'Firemaking': '/icons/skills/Firemaking_icon.png',
+  'Woodcutting': '/icons/skills/Woodcutting_icon.png',
+  'Farming': '/icons/skills/Farming_icon.png',
+  'Sailing': '/icons/skills/Sailing_icon.png',
 };
 
 export function SkillInput({ skill, level, onChange, xpFilter, onToggleXpFilter }: SkillInputProps) {
@@ -47,7 +48,7 @@ export function SkillInput({ skill, level, onChange, xpFilter, onToggleXpFilter 
           alt={skill}
           className={`skill-icon${onToggleXpFilter ? ' skill-icon--clickable' : ''}`}
           onClick={onToggleXpFilter}
-        />
+/>
       )}
       <input
         type="number"
