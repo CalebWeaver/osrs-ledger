@@ -52,6 +52,7 @@ interface SavedSettings {
   gpPerXp?: string;
   completedQuests?: string[];
   activeTab?: AppTab;
+  xpSkillFilter?: string[];
 }
 
 function loadSettings(): SavedSettings {
@@ -84,6 +85,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
   const [hydrated, setHydrated] = useState(false);
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>('levels');
   const [activeTab, setActiveTab] = useState<AppTab>('methods');
+  const [xpSkillFilter, setXpSkillFilter] = useState<Set<Skill>>(new Set());
 
   // Restore saved settings on mount
   useEffect(() => {
@@ -105,6 +107,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     if (s.gpPerXp !== undefined) setGpPerXp(s.gpPerXp);
     if (s.completedQuests) setCompletedQuests(new Set(s.completedQuests));
     if (s.activeTab === 'methods' || s.activeTab === 'highalch') setActiveTab(s.activeTab);
+    if (s.xpSkillFilter) setXpSkillFilter(new Set(s.xpSkillFilter as Skill[]));
     setHydrated(true);
   }, []);
 
@@ -114,8 +117,9 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     saveSettings({
       username, playerStats, showUnavailable, availableGold, sortBy,
       minOutputVolume, gpPerXp, completedQuests: Array.from(completedQuests), activeTab,
+      xpSkillFilter: Array.from(xpSkillFilter),
     });
-  }, [hydrated, username, playerStats, showUnavailable, availableGold, sortBy, minOutputVolume, gpPerXp, completedQuests, activeTab]);
+  }, [hydrated, username, playerStats, showUnavailable, availableGold, sortBy, minOutputVolume, gpPerXp, completedQuests, activeTab, xpSkillFilter]);
 
   async function lookupPlayer(name: string) {
     const trimmed = name.trim();
@@ -145,6 +149,18 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     setPlayerStats(prev => ({ ...prev, [skill]: level }));
   }
 
+  function toggleXpSkillFilter(skill: Skill) {
+    setXpSkillFilter(prev => {
+      const next = new Set(prev);
+      if (next.has(skill)) {
+        next.delete(skill);
+      } else {
+        next.add(skill);
+      }
+      return next;
+    });
+  }
+
   function toggleQuest(quest: string) {
     setCompletedQuests(prev => {
       const next = new Set(prev);
@@ -165,6 +181,10 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         const goldLimit = parseInt(availableGold, 10);
         const costPerHour = ev.costPerAction * ev.actionsPerHour;
         if (!isNaN(goldLimit) && costPerHour > goldLimit) return false;
+      }
+      if (xpSkillFilter.size > 0) {
+        const hasMatchingXp = ev.expPerHour.some(e => xpSkillFilter.has(e.skill));
+        if (!hasMatchingXp) return false;
       }
       if (minOutputVolume !== '') {
         const volLimit = parseInt(minOutputVolume, 10);
@@ -299,6 +319,8 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
                   skill={skill}
                   level={playerStats[skill]}
                   onChange={(lvl) => setSkillLevel(skill, lvl)}
+                  xpFilter={xpSkillFilter.has(skill)}
+                  onToggleXpFilter={() => toggleXpSkillFilter(skill)}
                 />
               ))}
             </div>

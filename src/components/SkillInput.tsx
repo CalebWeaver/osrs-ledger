@@ -6,6 +6,8 @@ interface SkillInputProps {
   skill: Skill;
   level: number;
   onChange: (level: number) => void;
+  xpFilter?: boolean;
+  onToggleXpFilter?: () => void;
 }
 
 const SKILL_ICONS: Partial<Record<Skill, string>> = {
@@ -34,12 +36,19 @@ const SKILL_ICONS: Partial<Record<Skill, string>> = {
   'Farming': 'https://oldschool.runescape.wiki/images/Farming_icon_%28detail%29.png?a30e2',
 };
 
-export function SkillInput({ skill, level, onChange }: SkillInputProps) {
+export function SkillInput({ skill, level, onChange, xpFilter, onToggleXpFilter }: SkillInputProps) {
   const iconUrl = SKILL_ICONS[skill];
 
   return (
-    <div className="skill-input-container" title={skill}>
-      {iconUrl && <img src={iconUrl} alt={skill} className="skill-icon" />}
+    <div className={`skill-input-container${xpFilter ? ' skill-input-container--xp-active' : ''}`} title={skill}>
+      {iconUrl && (
+        <img
+          src={iconUrl}
+          alt={skill}
+          className={`skill-icon${onToggleXpFilter ? ' skill-icon--clickable' : ''}`}
+          onClick={onToggleXpFilter}
+        />
+      )}
       <input
         type="number"
         min="1"

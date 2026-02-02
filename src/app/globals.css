@@ -232,10 +232,25 @@ body {
   border-color: var(--osrs-accent);
 }
 
+.skill-input-container--xp-active {
+  border-color: var(--osrs-accent);
+  background: #1a1a0a;
+}
+
 .skill-icon {
   width: 20px;
   height: 20px;
   object-fit: contain;
+}
+
+.skill-icon--clickable {
+  cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.15s;
+}
+
+.skill-icon--clickable:hover {
+  opacity: 0.8;
 }
 
 .skill-input {
