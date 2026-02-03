@@ -11,6 +11,14 @@ export default async function Home() {
     <main className="main-container">
       <header className="app-header">
         <div className="app-header-title">
+          <img
+            src="/icons/Coins_10000.webp"
+            alt="GP"
+            className="header-coins-icon"
+            width={32}
+            height={32}
+            referrerPolicy="no-referrer"
+          />
           <h1>OSRS Ledger</h1>
           <HelpButton />
         </div>
