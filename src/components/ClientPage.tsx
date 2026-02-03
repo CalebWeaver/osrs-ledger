@@ -90,6 +90,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
   const [activeTab, setActiveTab] = useState<AppTab>('methods');
   const [xpSkillFilter, setXpSkillFilter] = useState<Set<Skill>>(new Set());
   const [roguesOutfit, setRoguesOutfit] = useState<boolean>(false);
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
   // Restore saved settings on mount
   useEffect(() => {
@@ -275,6 +276,13 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
       </div>
 
       <section className="controls-section">
+        <button
+          className="sidebar-toggle"
+          onClick={() => setSidebarOpen(prev => !prev)}
+        >
+          {sidebarOpen ? 'Hide Controls ▲' : 'Show Controls ▼'}
+        </button>
+        <div className={`sidebar-content ${sidebarOpen ? 'sidebar-content--open' : ''}`}>
         <div className="sidebar-tabs">
           <button
             className={`sidebar-tab ${sidebarTab === 'levels' ? 'sidebar-tab--active' : ''}`}
@@ -400,6 +408,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
             />
             Show Unavailable Methods
           </label>
+        </div>
         </div>
       </section>
     </div>

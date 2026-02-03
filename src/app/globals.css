@@ -1,11 +1,14 @@
 :root {
-  --osrs-bg: #1e1e1e;
-  --osrs-text: #e0e0e0;
-  --osrs-panel: #2d2d2d;
-  --osrs-border: #3e3e3e;
+  --osrs-bg: #1a1510;
+  --osrs-text: #e0d6c2;
+  --osrs-panel: #3e3529;
+  --osrs-border: #5c4f3a;
   --osrs-accent: #f5a623;
   --osrs-red: #ff5252;
   --osrs-green: #69f0ae;
+  --osrs-border-light: #7a6b4e;
+  --osrs-border-dark: #2a2318;
+  --osrs-panel-dark: #2e2820;
 }
 
 body {
@@ -25,8 +28,43 @@ body {
 .app-header {
   text-align: center;
   margin-bottom: 2rem;
-  border-bottom: 1px solid var(--osrs-border);
-  padding-bottom: 1rem;
+  padding: 1.25rem 1.5rem 1rem;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(92, 79, 58, 0.4) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 50%, rgba(92, 79, 58, 0.4) 0%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(62, 53, 41, 0.6) 0%, transparent 80%),
+    linear-gradient(180deg, #352e24 0%, #1a1510 100%);
+  border: 2px solid var(--osrs-accent);
+  border-bottom: 3px double var(--osrs-accent);
+  box-shadow:
+    inset 0 0 20px rgba(245, 166, 35, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+}
+
+/* Decorative corner accents */
+.app-header::before,
+.app-header::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--osrs-accent);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.app-header::before {
+  top: 4px;
+  left: 4px;
+  border-width: 2px 0 0 2px;
+}
+
+.app-header::after {
+  top: 4px;
+  right: 4px;
+  border-width: 2px 2px 0 0;
 }
 
 .app-header-title {
@@ -36,9 +74,14 @@ body {
   gap: 0.5rem;
 }
 
+.header-coins-icon {
+  image-rendering: pixelated;
+}
+
 .app-header h1 {
   color: var(--osrs-accent);
   margin: 0;
+  text-shadow: 0 0 10px rgba(245, 166, 35, 0.35);
 }
 
 .help-btn {
@@ -78,7 +121,7 @@ body {
   border-radius: 50%;
   border: 1px solid var(--osrs-border);
   background: transparent;
-  color: #888;
+  color: #a89880;
   font-size: 0.65rem;
   font-style: italic;
   font-weight: bold;
@@ -97,8 +140,12 @@ body {
 .infotip-popup {
   position: fixed;
   transform: translate(-50%, -100%);
-  background: #1a1a1a;
+  background: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   border-radius: 0.375rem;
   padding: 0.5rem 0.65rem;
   font-size: 0.8rem;
@@ -143,7 +190,7 @@ body {
 }
 
 .app-header p {
-  color: #888;
+  color: #bfb49e;
   margin-top: 0.5rem;
 }
 
@@ -162,6 +209,10 @@ body {
   padding: 1rem;
   border-radius: 8px;
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -221,7 +272,7 @@ body {
 
 .username-input {
   flex: 1;
-  background: #111;
+  background: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
   border-radius: 4px;
   color: var(--osrs-text);
@@ -272,7 +323,7 @@ body {
 .skill-input-container {
   display: flex;
   align-items: center;
-  background: #111;
+  background: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
   border-radius: 4px;
   padding: 0.2rem 0.35rem;
@@ -314,15 +365,15 @@ body {
   width: 100%;
   outline: none;
   font-weight: bold;
-  text-align: right; /* Aligns number to the right like OSRS stats panel usually feels */
+  text-align: right;
   padding: 0;
 }
 
 /* Remove default number spinner */
-.skill-input::-webkit-inner-spin-button, 
-.skill-input::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+.skill-input::-webkit-inner-spin-button,
+.skill-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 
@@ -330,6 +381,10 @@ body {
 .method-card {
   background: var(--osrs-panel);
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   border-radius: 8px;
   margin-bottom: 0.5rem;
   transition: all 0.2s ease;
@@ -340,13 +395,17 @@ body {
 }
 
 .method-card.interactive:hover {
-  border-color: #666;
-  background: #333;
+  border-color: #7a6b55;
+  background: #4a3f32;
 }
 
 .method-card.expanded {
   border-color: var(--osrs-accent);
-  background: #2a2a2a;
+  border-top-color: var(--osrs-accent);
+  border-left-color: var(--osrs-accent);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
+  background: #3a3128;
 }
 
 /* Single Row Layout */
@@ -381,7 +440,7 @@ body {
   flex-direction: row;
   align-items: baseline;
   gap: 0.5ch;
-  min-width: unset; /* Remove fixed width to let it flow */
+  min-width: unset;
 }
 
 .profit-section {
@@ -390,14 +449,14 @@ body {
   align-items: baseline;
   justify-content: flex-end;
   gap: 0.25rem;
-  min-width: 140px; /* Keep some min-width for alignment stability across cards */
+  min-width: 140px;
   text-align: right;
 }
 
 /* Typography specifics */
 .label-tiny {
   font-size: 0.65rem;
-  color: #888;
+  color: #a89880;
   text-transform: uppercase;
 }
 
@@ -413,7 +472,7 @@ body {
 
 .avg-label-tiny {
   font-size: 0.6rem;
-  color: #666;
+  color: #7a6b55;
 }
 
 /* Mini Icons (Preview) */
@@ -443,7 +502,7 @@ body {
 /* Expanded Details */
 .expanded-details {
   padding: 0 1rem 1rem 1rem;
-  cursor: default; /* Don't toggle on click inside */
+  cursor: default;
 }
 
 .divider {
@@ -459,7 +518,7 @@ body {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
-  background: #1a1a1a;
+  background: var(--osrs-panel-dark);
   padding: 1rem;
   border-radius: 8px;
 }
@@ -480,7 +539,7 @@ body {
   position: relative;
   width: 42px;
   height: 42px;
-  background: #111;
+  background: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
   border-radius: 4px;
   display: flex;
@@ -505,7 +564,7 @@ body {
 }
 
 .operator, .arrow-operator {
-  color: #888;
+  color: #a89880;
   font-weight: bold;
 }
 
@@ -524,7 +583,7 @@ body {
 .breakdown-col h4 {
   margin: 0 0 0.5rem 0;
   font-size: 0.9rem;
-  color: #888;
+  color: #a89880;
   border-bottom: 1px solid var(--osrs-border);
   padding-bottom: 0.25rem;
 }
@@ -541,22 +600,22 @@ body {
   padding: 0.25rem 0;
   font-size: 0.9rem;
   color: #ccc;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--osrs-border-dark);
 }
 
 .text-red { color: #ff5252; }
 .text-green { color: #69f0ae; }
 .text-blue { color: #42a5f5; }
-.text-gray { color: #888; }
-.text-gray-dim { color: #666; } /* Dimmed text for locked cards */
+.text-gray { color: #a89880; }
+.text-gray-dim { color: #7a6b55; }
 
 /* Locked State Utilities */
 .opacity-50 { opacity: 0.5; }
-.locked { 
-  background: #1e1e1e; /* Slightly darker background */
-  border-color: #333;
+.locked {
+  background: var(--osrs-bg);
+  border-color: var(--osrs-border-dark);
 }
-.row-section.opacity-50 { opacity: 0.5; } 
+.row-section.opacity-50 { opacity: 0.5; }
 
 .lock-icon {
   margin-left: 0.5rem;
@@ -589,8 +648,8 @@ body {
 
 .locked-tag {
   margin-left: 1rem;
-  background: #333;
-  color: #888;
+  background: var(--osrs-border-dark);
+  color: #a89880;
   padding: 2px 8px;
   border-radius: 4px;
   font-size: 0.7rem;
@@ -606,14 +665,14 @@ body {
 .input-label {
   display: block;
   font-size: 0.75rem;
-  color: #888;
+  color: #a89880;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.3rem;
 }
 
 .input-field {
-  background: #111;
+  background: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
   border-radius: 4px;
   color: var(--osrs-text);
@@ -634,7 +693,7 @@ body {
 
 select.input-field {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a89880' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5rem center;
   padding-right: 1.5rem;
@@ -661,41 +720,6 @@ select.input-field option {
   height: 16px;
 }
 
-/* Locked State Utilities */
-.opacity-50 { opacity: 0.5; }
-
-.locked-badge {
-  display: inline-block;
-  margin-left: 0.5rem;
-  font-size: 0.7rem;
-  padding: 2px 6px;
-  background: #444;
-  color: #ff5252;
-  border: 1px solid #ff5252;
-  border-radius: 4px;
-  vertical-align: middle;
-}
-
-.locked-warning {
-  background: rgba(255, 82, 82, 0.1);
-  border: 1px solid #ff5252;
-  color: #ff5252;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-  border-radius: 4px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.locked-tag {
-  margin-left: 1rem;
-  background: #333;
-  color: #888;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-}
 /* Crafting Chain UI */
 .chain-container {
   display: flex;
@@ -703,8 +727,12 @@ select.input-field option {
   gap: 1rem;
   background-color: var(--osrs-bg);
   padding: 1rem;
-  border-radius: 0.75rem; /* rounded-xl */
+  border-radius: 0.75rem;
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
@@ -717,7 +745,7 @@ select.input-field option {
 }
 
 .chain-title-group h3 {
-  font-size: 1.125rem; /* text-lg */
+  font-size: 1.125rem;
   font-weight: 700;
   color: #fff;
   margin: 0;
@@ -727,8 +755,8 @@ select.input-field option {
   display: flex;
   gap: 1rem;
   margin-top: 0.25rem;
-  font-size: 0.875rem; /* text-sm */
-  color: #a1a1aa; /* zinc-400 */
+  font-size: 0.875rem;
+  color: #bfb49e;
 }
 
 .stat-value-green { color: var(--osrs-green); font-weight: 500; }
@@ -738,8 +766,8 @@ select.input-field option {
 .btn-clear {
   padding: 0.375rem 0.75rem;
   background-color: var(--osrs-panel);
-  color: #d4d4d8; /* zinc-300 */
-  font-size: 0.75rem; /* text-xs */
+  color: #d4d4d8;
+  font-size: 0.75rem;
   border-radius: 0.25rem;
   border: 1px solid var(--osrs-border);
   transition: background-color 0.2s;
@@ -747,7 +775,7 @@ select.input-field option {
 }
 
 .btn-clear:hover {
-  background-color: #3f3f46; /* zinc-700 */
+  background-color: #4a3f32;
 }
 
 .chain-scroll-area {
@@ -769,28 +797,31 @@ select.input-field option {
 
 .chain-connector {
   margin: 0 0.5rem;
-  color: #52525b; /* zinc-600 */
+  color: #7a6b55;
   font-size: 1.25rem;
 }
 
 /* Abbreviated Method Card */
-/* Abbreviated Method Card */
 .chain-card {
   position: relative;
-  min-width: 200px; /* Reduced min-width */
+  min-width: 200px;
   background-color: var(--osrs-panel);
   border-radius: 0.5rem;
-  padding: 0.5rem; /* Reduced padding */
+  padding: 0.5rem;
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  gap: 0.25rem; /* Reduced gap */
+  gap: 0.25rem;
   transition: border-color 0.2s;
 }
 
 .chain-card:hover {
-  border-color: #52525b; /* zinc-600 */
+  border-color: #7a6b55;
 }
 
 .btn-remove-step {
@@ -800,7 +831,7 @@ select.input-field option {
   padding: 0.25rem;
   background: transparent;
   border: none;
-  color: #71717a; /* zinc-500 */
+  color: #7a6b55;
   opacity: 0;
   transition: opacity 0.2s, color 0.2s;
   cursor: pointer;
@@ -817,15 +848,15 @@ select.input-field option {
 .card-header {
   display: flex;
   flex-direction: column;
-  padding-bottom: 0.25rem; /* Reduced padding */
+  padding-bottom: 0.25rem;
   border-bottom: 1px solid var(--osrs-border);
   margin-bottom: 0.25rem;
 }
 
 .card-title {
   font-weight: 600;
-  font-size: 0.8rem; /* Slightly smaller */
-  color: #e4e4e7; /* zinc-200 */
+  font-size: 0.8rem;
+  color: #e4e4e7;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -833,7 +864,7 @@ select.input-field option {
 }
 
 .card-profit {
-  font-size: 0.7rem; /* Slightly smaller */
+  font-size: 0.7rem;
   font-family: monospace;
   font-weight: 500;
 }
@@ -841,15 +872,15 @@ select.input-field option {
 .card-body {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center alignment */
-  gap: 0.5rem; /* Explicit gap */
+  justify-content: center;
+  gap: 0.5rem;
   padding: 0;
   font-size: 0.75rem;
 }
 
 .item-column {
   display: flex;
-  flex-direction: row; /* Horizontal layout */
+  flex-direction: row;
   gap: 0.25rem;
   align-items: center;
 }
@@ -857,10 +888,10 @@ select.input-field option {
 .item-slot {
   position: relative;
   cursor: pointer;
-  width: 2.5rem; /* Increased slot size */
+  width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.25rem;
-  background-color: #111; /* zinc-900 */
+  background-color: var(--osrs-panel-dark);
   border: 1px solid var(--osrs-border);
   display: flex;
   align-items: center;
@@ -906,10 +937,10 @@ select.input-field option {
 }
 
 .flow-arrow {
-  color: #71717a; /* zinc-500 */
+  color: #7a6b55;
   opacity: 0.5;
   font-size: 0.8rem;
-  margin: 0 0.1rem; /* Tight margins */
+  margin: 0 0.1rem;
 }
 
 .count-badge {
@@ -931,7 +962,7 @@ select.input-field option {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Keep dim background but allow it to close on click */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 50;
   display: flex;
   align-items: center;
@@ -941,6 +972,10 @@ select.input-field option {
 .popup-content {
   background-color: var(--osrs-panel);
   border: 1px solid var(--osrs-border);
+  border-top-color: var(--osrs-border-light);
+  border-left-color: var(--osrs-border-light);
+  border-bottom-color: var(--osrs-border-dark);
+  border-right-color: var(--osrs-border-dark);
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   width: 320px;
@@ -953,11 +988,10 @@ select.input-field option {
 /* Context Menu mode overrides */
 .popup-content.context-menu {
   position: absolute;
-  /* top/left set via inline styles */
   margin: 0;
   width: 280px;
   max-height: 400px;
-  transform: translate(10px, 10px); /* Offset slightly from cursor */
+  transform: translate(10px, 10px);
 }
 
 .popup-header {
@@ -977,7 +1011,7 @@ select.input-field option {
 .close-btn {
   background: none;
   border: none;
-  color: #888;
+  color: #a89880;
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
@@ -999,7 +1033,7 @@ select.input-field option {
 .source-method-item {
   padding: 0.5rem;
   border-radius: 0.25rem;
-  background-color: #1e1e1e;
+  background-color: var(--osrs-bg);
   border: 1px solid transparent;
   cursor: pointer;
   display: flex;
@@ -1009,7 +1043,7 @@ select.input-field option {
 }
 
 .source-method-item:hover {
-  background-color: #2a2a2a;
+  background-color: var(--osrs-panel-dark);
   border-color: var(--osrs-accent);
 }
 
@@ -1037,7 +1071,7 @@ select.input-field option {
 }
 
 .start-chain-btn:hover {
-  background-color: #3f3f46;
+  background-color: #4a3f32;
   border-color: var(--osrs-accent);
   color: var(--osrs-accent);
 }
@@ -1054,7 +1088,7 @@ select.input-field option {
   padding: 0.6rem 1.5rem;
   background: none;
   border: none;
-  color: #888;
+  color: #a89880;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
@@ -1101,7 +1135,7 @@ select.input-field option {
 }
 
 .alch-count {
-  color: #888;
+  color: #a89880;
   font-size: 0.85rem;
   margin-left: auto;
 }
@@ -1121,11 +1155,11 @@ select.input-field option {
 .alch-th {
   position: sticky;
   top: 0;
-  background: var(--osrs-panel);
+  background: var(--osrs-panel-dark);
   padding: 0.6rem 0.75rem;
   text-align: right;
   font-size: 0.8rem;
-  color: #888;
+  color: #a89880;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--osrs-border);
@@ -1143,12 +1177,12 @@ select.input-field option {
 }
 
 .alch-tr {
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--osrs-border-dark);
   transition: background 0.1s;
 }
 
 .alch-tr:hover {
-  background: #2a2a2a;
+  background: var(--osrs-panel-dark);
 }
 
 .alch-td {
@@ -1170,6 +1204,11 @@ select.input-field option {
   object-fit: contain;
 }
 
+/* Sidebar toggle - hidden on desktop */
+.sidebar-toggle {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .content-wrapper {
     grid-template-columns: 1fr;
@@ -1179,14 +1218,67 @@ select.input-field option {
     position: static;
     max-height: none;
     overflow-y: visible;
+    order: 1;
   }
 
   .main-column {
     order: 2;
   }
 
-  .controls-section {
-    order: 1;
+  /* Collapsible sidebar */
+  .sidebar-toggle {
+    display: block;
+    width: 100%;
+    padding: 0.6rem;
+    background: none;
+    border: none;
+    color: var(--osrs-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .sidebar-content {
+    display: none;
+    width: 100%;
+  }
+
+  .sidebar-content--open {
+    display: contents;
+  }
+
+  /* Card overflow fixes */
+  .card-row {
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .profit-section {
+    min-width: unset;
+  }
+
+  .profit-large {
+    font-size: 0.95rem;
+  }
+
+  .method-name {
+    font-size: 0.9rem;
+  }
+
+  .equation-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .breakdown-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .expanded-details {
+    padding: 0 0.75rem 0.75rem 0.75rem;
   }
 
   .skill-input-container {
