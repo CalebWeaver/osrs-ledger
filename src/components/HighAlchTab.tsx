@@ -203,7 +203,7 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
               <th className="alch-th alch-th-name" onClick={() => handleSort('name')}>Item{sortIndicator('name')}</th>
               <th className="alch-th" onClick={() => handleSort('alchValue')}>Alch Value{sortIndicator('alchValue')}</th>
               <th className="alch-th" onClick={() => handleSort('buyPrice')}>Buy Price{sortIndicator('buyPrice')}</th>
-              <th className="alch-th">Nature Rune</th>
+
               <th className="alch-th" onClick={() => handleSort('profitPerAlch')}>Profit/Alch{sortIndicator('profitPerAlch')}</th>
               <th className="alch-th" onClick={() => handleSort('profitPerHour')}>Profit/Hr{sortIndicator('profitPerHour')}</th>
               <th className="alch-th" onClick={() => handleSort('buyLimit')}>Buy Limit{sortIndicator('buyLimit')}</th>
@@ -225,7 +225,7 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
                 </td>
                 <td className="alch-td">{e.alchValue.toLocaleString()}</td>
                 <td className="alch-td">{e.buyPrice.toLocaleString()}</td>
-                <td className="alch-td">{e.natureRunePrice.toLocaleString()}</td>
+
                 <td className={`alch-td ${profitClass(e.profitPerAlch)}`}>{e.profitPerAlch.toLocaleString()}</td>
                 <td className={`alch-td ${profitClass(e.profitPerHour)}`}>{formatGp(e.profitPerHour)}</td>
                 <td className="alch-td">{e.buyLimit != null ? e.buyLimit.toLocaleString() : '-'}</td>
