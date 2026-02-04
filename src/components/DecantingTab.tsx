@@ -317,8 +317,8 @@ export function DecantingTab({ prices }: DecantingTabProps) {
     const minP4 = parseGpInput(minProfit4hr);
     if (minP4) items = items.filter(e => e.profit4hr >= minP4);
 
-    const minV = parseInt(minVolume, 10);
-    if (!isNaN(minV) && minV > 0) items = items.filter(e => e.volume >= minV);
+    const minV = parseGpInput(minVolume);
+    if (minV) items = items.filter(e => e.volume >= minV);
 
     items.sort((a, b) => {
       let av: number, bv: number;
@@ -402,8 +402,8 @@ export function DecantingTab({ prices }: DecantingTabProps) {
                 onSort={handleSort}
                 filterValue={minVolume}
                 onFilterChange={setMinVolume}
-                filterPlaceholder="Min volume"
-                filterType="number"
+                filterPlaceholder="Min volume (e.g. 10K)"
+                filterType="gp"
                 isOpen={openFilter === 'volume'}
                 onToggle={() => setOpenFilter(openFilter === 'volume' ? null : 'volume')}
                 onClose={() => setOpenFilter(null)}

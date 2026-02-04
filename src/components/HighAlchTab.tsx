@@ -233,8 +233,8 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
     if (minPH) items = items.filter(e => e.profitPerHour >= minPH);
     const maxBP = parseGpInput(maxBuyPrice);
     if (maxBP) items = items.filter(e => e.buyPrice <= maxBP);
-    const minBL = parseInt(minBuyLimit, 10);
-    if (!isNaN(minBL) && minBL > 0) items = items.filter(e => e.buyLimit != null && e.buyLimit >= minBL);
+    const minBL = parseGpInput(minBuyLimit);
+    if (minBL) items = items.filter(e => e.buyLimit != null && e.buyLimit >= minBL);
     const minPA = parseGpInput(minProfitPerAlch);
     if (minPA) items = items.filter(e => e.profitPerAlch >= minPA);
 
@@ -359,8 +359,8 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
                 onSort={handleSort}
                 filterValue={minBuyLimit}
                 onFilterChange={setMinBuyLimit}
-                filterPlaceholder="Min limit"
-                filterType="number"
+                filterPlaceholder="Min limit (e.g. 1K)"
+                filterType="gp"
                 isOpen={openFilter === 'buyLimit'}
                 onToggle={() => setOpenFilter(openFilter === 'buyLimit' ? null : 'buyLimit')}
                 onClose={() => setOpenFilter(null)}

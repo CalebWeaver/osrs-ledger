@@ -196,14 +196,14 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         if (!hasMatchingXp) return false;
       }
       if (minOutputVolume !== '') {
-        const volLimit = parseInt(minOutputVolume, 10);
-        if (!isNaN(volLimit) && ev.outputRevenues.length > 0 &&
+        const volLimit = parseGpInput(minOutputVolume);
+        if (!isNaN(volLimit) && volLimit > 0 && ev.outputRevenues.length > 0 &&
             ev.outputRevenues.every(o => o.volume < volLimit)) return false;
       }
       return true;
     })
     .sort((a, b) => {
-      const xpValue = parseFloat(gpPerXp) || 0;
+      const xpValue = parseGpInput(gpPerXp) || 0;
       const effA = a.profitPerHour + a.totalExpPerHour * xpValue;
       const effB = b.profitPerHour + b.totalExpPerHour * xpValue;
       return effB - effA;
@@ -398,22 +398,24 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         <div className="control-group">
           <label className="input-label">Min Output Volume (24h)<InfoTip text="Hides methods whose outputs trade fewer than this many units per day on the Grand Exchange. Filters out items that may be hard to sell quickly." /></label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             className="input-field w-full"
-            placeholder="No Limit"
+            placeholder="No Limit (e.g. 20K)"
             value={minOutputVolume}
-            onChange={(e) => setMinOutputVolume(e.target.value)}
+            onChange={(e) => setMinOutputVolume(normalizeGpInput(e.target.value))}
           />
         </div>
 
 <div className="control-group">
           <label className="input-label">XP Value (GP per XP)<InfoTip text="Assigns a GP value to each XP gained. Methods are sorted by profit + (XP/hr × this value), so XP-rich methods rank higher. For example, setting this to 5 means 1 XP is worth 5 GP when ranking methods." /></label>
           <input
-            type="number"
+            type="text"
+            inputMode="numeric"
             className="input-field w-full"
             placeholder="0"
             value={gpPerXp}
-            onChange={(e) => setGpPerXp(e.target.value)}
+            onChange={(e) => setGpPerXp(normalizeGpInput(e.target.value))}
           />
         </div>
 

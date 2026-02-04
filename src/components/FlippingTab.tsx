@@ -241,14 +241,14 @@ export function FlippingTab({ prices, mapping }: FlippingTabProps) {
     const minR = parseFloat(minRoi);
     if (!isNaN(minR) && minR > 0) items = items.filter(e => e.roi >= minR);
 
-    const minV = parseInt(minVolume, 10);
-    if (!isNaN(minV) && minV > 0) items = items.filter(e => e.volume >= minV);
+    const minV = parseGpInput(minVolume);
+    if (minV) items = items.filter(e => e.volume >= minV);
 
     const maxBP = parseGpInput(maxBuyPrice);
     if (maxBP) items = items.filter(e => e.buyPrice <= maxBP);
 
-    const minBL = parseInt(minBuyLimit, 10);
-    if (!isNaN(minBL) && minBL > 0) items = items.filter(e => e.buyLimit != null && e.buyLimit >= minBL);
+    const minBL = parseGpInput(minBuyLimit);
+    if (minBL) items = items.filter(e => e.buyLimit != null && e.buyLimit >= minBL);
 
     const minPPL = parseGpInput(minProfitPerLimit);
     if (minPPL) items = items.filter(e => e.profitPerLimit != null && e.profitPerLimit >= minPPL);
@@ -376,8 +376,8 @@ export function FlippingTab({ prices, mapping }: FlippingTabProps) {
                 onSort={handleSort}
                 filterValue={minVolume}
                 onFilterChange={setMinVolume}
-                filterPlaceholder="Min volume"
-                filterType="number"
+                filterPlaceholder="Min volume (e.g. 10K)"
+                filterType="gp"
                 isOpen={openFilter === 'volume'}
                 onToggle={() => setOpenFilter(openFilter === 'volume' ? null : 'volume')}
                 onClose={() => setOpenFilter(null)}
@@ -390,8 +390,8 @@ export function FlippingTab({ prices, mapping }: FlippingTabProps) {
                 onSort={handleSort}
                 filterValue={minBuyLimit}
                 onFilterChange={setMinBuyLimit}
-                filterPlaceholder="Min limit"
-                filterType="number"
+                filterPlaceholder="Min limit (e.g. 1K)"
+                filterType="gp"
                 isOpen={openFilter === 'buyLimit'}
                 onToggle={() => setOpenFilter(openFilter === 'buyLimit' ? null : 'buyLimit')}
                 onClose={() => setOpenFilter(null)}
