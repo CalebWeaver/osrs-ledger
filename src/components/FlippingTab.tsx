@@ -3,50 +3,49 @@
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { PriceMap, ItemMapping } from '@/lib/types';
 import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
+import { calculateGeTax } from '@/lib/geTax';
 
-const NATURE_RUNE_ID = 561;
-const ALCHS_PER_HOUR = 1200; // 5-tick action
-const ALCHS_PER_4HR = ALCHS_PER_HOUR * 4; // 4800 alchs in 4 hours
-const ALCH_LS_KEY = 'osrs-ledger-alch-filters';
+const FLIP_LS_KEY = 'osrs-ledger-flip-filters';
 
-interface AlchFilters {
+interface FlipFilters {
   search?: string;
-  showAll?: boolean;
+  showUnprofitable?: boolean;
   sortKey?: SortKey;
   sortAsc?: boolean;
-  minProfitPerLimit?: string;
-  minProfitPerHour?: string;
+  minMargin?: string;
+  minRoi?: string;
+  minVolume?: string;
   maxBuyPrice?: string;
   minBuyLimit?: string;
-  minProfitPerAlch?: string;
+  minProfitPerLimit?: string;
   maxCostPerLimit?: string;
 }
 
-function loadAlchFilters(): AlchFilters {
+function loadFlipFilters(): FlipFilters {
   try {
-    const raw = localStorage.getItem(ALCH_LS_KEY);
+    const raw = localStorage.getItem(FLIP_LS_KEY);
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
   }
 }
 
-type SortKey = 'name' | 'alchValue' | 'buyPrice' | 'profitPerAlch' | 'profitPerHour' | 'buyLimit' | 'costPerLimit' | 'profitPerLimit';
+type SortKey = 'name' | 'buyPrice' | 'sellPrice' | 'margin' | 'roi' | 'volume' | 'buyLimit' | 'costPerLimit' | 'profitPerLimit';
 
-interface AlchEvaluation {
+interface FlipEvaluation {
   id: number;
   name: string;
-  alchValue: number;
   buyPrice: number;
-  natureRunePrice: number;
-  profitPerAlch: number;
-  profitPerHour: number;
+  sellPrice: number;
+  margin: number;
+  roi: number;
+  volume: number;
   buyLimit: number | null;
   costPerLimit: number | null;
   profitPerLimit: number | null;
 }
 
-interface HighAlchTabProps {
+interface FlippingTabProps {
   prices: PriceMap;
   mapping: ItemMapping[];
 }
@@ -66,7 +65,7 @@ interface FilterableHeaderProps {
   filterValue: string;
   onFilterChange: (value: string) => void;
   filterPlaceholder: string;
-  filterType: 'gp' | 'number';
+  filterType: 'gp' | 'number' | 'percent';
   isOpen: boolean;
   onToggle: () => void;
   onClose: () => void;
@@ -112,6 +111,8 @@ function FilterableHeader({
     const val = e.target.value;
     if (filterType === 'gp') {
       onFilterChange(normalizeGpInput(val));
+    } else if (filterType === 'percent') {
+      onFilterChange(val.replace(/[^\d.]/g, ''));
     } else {
       onFilterChange(val.replace(/[^\d]/g, ''));
     }
@@ -170,73 +171,87 @@ function FilterableHeader({
   );
 }
 
-export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
-  const saved = useMemo(() => loadAlchFilters(), []);
+export function FlippingTab({ prices, mapping }: FlippingTabProps) {
+  const saved = useMemo(() => loadFlipFilters(), []);
   const [search, setSearch] = useState(saved.search ?? '');
-  const [showAll, setShowAll] = useState(saved.showAll ?? false);
-  const [sortKey, setSortKey] = useState<SortKey>(saved.sortKey ?? 'profitPerAlch');
+  const [showUnprofitable, setShowUnprofitable] = useState(saved.showUnprofitable ?? false);
+  const [sortKey, setSortKey] = useState<SortKey>(saved.sortKey ?? 'profitPerLimit');
   const [sortAsc, setSortAsc] = useState(saved.sortAsc ?? false);
-  const [minProfitPerLimit, setMinProfitPerLimit] = useState(saved.minProfitPerLimit ?? '');
-  const [minProfitPerHour, setMinProfitPerHour] = useState(saved.minProfitPerHour ?? '');
+  const [minMargin, setMinMargin] = useState(saved.minMargin ?? '');
+  const [minRoi, setMinRoi] = useState(saved.minRoi ?? '');
+  const [minVolume, setMinVolume] = useState(saved.minVolume ?? '');
   const [maxBuyPrice, setMaxBuyPrice] = useState(saved.maxBuyPrice ?? '');
   const [minBuyLimit, setMinBuyLimit] = useState(saved.minBuyLimit ?? '');
-  const [minProfitPerAlch, setMinProfitPerAlch] = useState(saved.minProfitPerAlch ?? '');
+  const [minProfitPerLimit, setMinProfitPerLimit] = useState(saved.minProfitPerLimit ?? '');
   const [maxCostPerLimit, setMaxCostPerLimit] = useState(saved.maxCostPerLimit ?? '');
   const [openFilter, setOpenFilter] = useState<SortKey | null>(null);
 
   useEffect(() => {
-    localStorage.setItem(ALCH_LS_KEY, JSON.stringify({
-      search, showAll, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice, minBuyLimit, minProfitPerAlch, maxCostPerLimit,
+    localStorage.setItem(FLIP_LS_KEY, JSON.stringify({
+      search, showUnprofitable, sortKey, sortAsc, minMargin, minRoi, minVolume, maxBuyPrice, minBuyLimit, minProfitPerLimit, maxCostPerLimit,
     }));
-  }, [search, showAll, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice, minBuyLimit, minProfitPerAlch, maxCostPerLimit]);
-
-  const natureRunePrice = prices[NATURE_RUNE_ID]?.avgHighPrice ?? prices[NATURE_RUNE_ID]?.high ?? 0;
+  }, [search, showUnprofitable, sortKey, sortAsc, minMargin, minRoi, minVolume, maxBuyPrice, minBuyLimit, minProfitPerLimit, maxCostPerLimit]);
 
   const evaluations = useMemo(() => {
-    const results: AlchEvaluation[] = [];
+    const results: FlipEvaluation[] = [];
     for (const item of mapping) {
-      if (!item.highalch || item.highalch <= 0) continue;
       const priceData = prices[item.id];
       if (!priceData) continue;
-      const buyPrice = priceData.avgHighPrice ?? priceData.high ?? 0;
-      if (buyPrice <= 0) continue;
 
-      const profitPerAlch = item.highalch - natureRunePrice - buyPrice;
-      // 4hr profit is capped by alch rate (4800/4hr) or buy limit, whichever is lower
-      const effectiveLimit = item.limit != null ? Math.min(item.limit, ALCHS_PER_4HR) : null;
+      const buyPrice = priceData.low;
+      const sellPrice = priceData.high;
+
+      if (!buyPrice || buyPrice <= 0 || !sellPrice || sellPrice <= 0) continue;
+
+      // Margin accounts for 2% GE tax on sell (capped at 5M, some items exempt)
+      const tax = calculateGeTax(sellPrice, item.id);
+      const margin = sellPrice - tax - buyPrice;
+      const roi = (margin / buyPrice) * 100;
+      const volume = (priceData.highPriceVolume ?? 0) + (priceData.lowPriceVolume ?? 0);
+
       results.push({
         id: item.id,
         name: item.name,
-        alchValue: item.highalch,
         buyPrice,
-        natureRunePrice,
-        profitPerAlch,
-        profitPerHour: profitPerAlch * ALCHS_PER_HOUR,
+        sellPrice,
+        margin,
+        roi,
+        volume,
         buyLimit: item.limit,
-        costPerLimit: effectiveLimit != null ? buyPrice * effectiveLimit : null,
-        profitPerLimit: effectiveLimit != null ? profitPerAlch * effectiveLimit : null,
+        costPerLimit: item.limit != null ? buyPrice * item.limit : null,
+        profitPerLimit: item.limit != null ? margin * item.limit : null,
       });
     }
     return results;
-  }, [mapping, prices, natureRunePrice]);
+  }, [mapping, prices]);
 
   const filtered = useMemo(() => {
     let items = evaluations;
-    if (!showAll) items = items.filter(e => e.profitPerAlch > 0);
+
+    if (!showUnprofitable) items = items.filter(e => e.margin > 0);
+
     if (search) {
       const q = search.toLowerCase();
       items = items.filter(e => e.name.toLowerCase().includes(q));
     }
-    const minPL = parseGpInput(minProfitPerLimit);
-    if (minPL) items = items.filter(e => e.profitPerLimit != null && e.profitPerLimit >= minPL);
-    const minPH = parseGpInput(minProfitPerHour);
-    if (minPH) items = items.filter(e => e.profitPerHour >= minPH);
+
+    const minM = parseGpInput(minMargin);
+    if (minM) items = items.filter(e => e.margin >= minM);
+
+    const minR = parseFloat(minRoi);
+    if (!isNaN(minR) && minR > 0) items = items.filter(e => e.roi >= minR);
+
+    const minV = parseInt(minVolume, 10);
+    if (!isNaN(minV) && minV > 0) items = items.filter(e => e.volume >= minV);
+
     const maxBP = parseGpInput(maxBuyPrice);
     if (maxBP) items = items.filter(e => e.buyPrice <= maxBP);
+
     const minBL = parseInt(minBuyLimit, 10);
     if (!isNaN(minBL) && minBL > 0) items = items.filter(e => e.buyLimit != null && e.buyLimit >= minBL);
-    const minPA = parseGpInput(minProfitPerAlch);
-    if (minPA) items = items.filter(e => e.profitPerAlch >= minPA);
+
+    const minPPL = parseGpInput(minProfitPerLimit);
+    if (minPPL) items = items.filter(e => e.profitPerLimit != null && e.profitPerLimit >= minPPL);
 
     const maxCPL = parseGpInput(maxCostPerLimit);
     if (maxCPL) items = items.filter(e => e.costPerLimit != null && e.costPerLimit <= maxCPL);
@@ -245,10 +260,11 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
       let av: number, bv: number;
       switch (sortKey) {
         case 'name': return sortAsc ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
-        case 'alchValue': av = a.alchValue; bv = b.alchValue; break;
         case 'buyPrice': av = a.buyPrice; bv = b.buyPrice; break;
-        case 'profitPerAlch': av = a.profitPerAlch; bv = b.profitPerAlch; break;
-        case 'profitPerHour': av = a.profitPerHour; bv = b.profitPerHour; break;
+        case 'sellPrice': av = a.sellPrice; bv = b.sellPrice; break;
+        case 'margin': av = a.margin; bv = b.margin; break;
+        case 'roi': av = a.roi; bv = b.roi; break;
+        case 'volume': av = a.volume; bv = b.volume; break;
         case 'buyLimit': av = a.buyLimit ?? -Infinity; bv = b.buyLimit ?? -Infinity; break;
         case 'costPerLimit': av = a.costPerLimit ?? -Infinity; bv = b.costPerLimit ?? -Infinity; break;
         case 'profitPerLimit': av = a.profitPerLimit ?? -Infinity; bv = b.profitPerLimit ?? -Infinity; break;
@@ -256,8 +272,9 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
       }
       return sortAsc ? av - bv : bv - av;
     });
+
     return items;
-  }, [evaluations, showAll, search, sortKey, sortAsc, minProfitPerLimit, minProfitPerHour, maxBuyPrice, minBuyLimit, minProfitPerAlch, maxCostPerLimit]);
+  }, [evaluations, showUnprofitable, search, sortKey, sortAsc, minMargin, minRoi, minVolume, maxBuyPrice, minBuyLimit, minProfitPerLimit, maxCostPerLimit]);
 
   function handleSort(key: SortKey) {
     if (sortKey === key) {
@@ -275,7 +292,7 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
 
   const profitClass = (v: number) => v > 0 ? 'text-green' : v < 0 ? 'text-red' : '';
 
-  const activeFilterCount = [minProfitPerLimit, minProfitPerHour, maxBuyPrice, minBuyLimit, minProfitPerAlch, maxCostPerLimit].filter(v => v !== '').length;
+  const activeFilterCount = [minMargin, minRoi, minVolume, maxBuyPrice, minBuyLimit, minProfitPerLimit, maxCostPerLimit].filter(v => v !== '').length;
 
   return (
     <div className="alch-tab">
@@ -290,8 +307,8 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
         <label className="checkbox-label">
           <input
             type="checkbox"
-            checked={showAll}
-            onChange={e => setShowAll(e.target.checked)}
+            checked={showUnprofitable}
+            onChange={e => setShowUnprofitable(e.target.checked)}
           />
           Show unprofitable
         </label>
@@ -308,7 +325,6 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
           <thead>
             <tr>
               <th className="alch-th alch-th-name" onClick={() => handleSort('name')}>Item{sortIndicator('name')}</th>
-              <th className="alch-th" onClick={() => handleSort('alchValue')}>Alch Value{sortIndicator('alchValue')}</th>
               <FilterableHeader
                 label="Buy Price"
                 sortKey="buyPrice"
@@ -323,32 +339,47 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
                 onToggle={() => setOpenFilter(openFilter === 'buyPrice' ? null : 'buyPrice')}
                 onClose={() => setOpenFilter(null)}
               />
+              <th className="alch-th" onClick={() => handleSort('sellPrice')}>Sell Price{sortIndicator('sellPrice')}</th>
               <FilterableHeader
-                label="Profit/Alch"
-                sortKey="profitPerAlch"
+                label="Margin"
+                sortKey="margin"
                 currentSortKey={sortKey}
                 sortAsc={sortAsc}
                 onSort={handleSort}
-                filterValue={minProfitPerAlch}
-                onFilterChange={setMinProfitPerAlch}
-                filterPlaceholder="Min profit"
+                filterValue={minMargin}
+                onFilterChange={setMinMargin}
+                filterPlaceholder="Min margin"
                 filterType="gp"
-                isOpen={openFilter === 'profitPerAlch'}
-                onToggle={() => setOpenFilter(openFilter === 'profitPerAlch' ? null : 'profitPerAlch')}
+                isOpen={openFilter === 'margin'}
+                onToggle={() => setOpenFilter(openFilter === 'margin' ? null : 'margin')}
                 onClose={() => setOpenFilter(null)}
               />
               <FilterableHeader
-                label="Profit/Hr"
-                sortKey="profitPerHour"
+                label="ROI %"
+                sortKey="roi"
                 currentSortKey={sortKey}
                 sortAsc={sortAsc}
                 onSort={handleSort}
-                filterValue={minProfitPerHour}
-                onFilterChange={setMinProfitPerHour}
-                filterPlaceholder="Min profit/hr"
-                filterType="gp"
-                isOpen={openFilter === 'profitPerHour'}
-                onToggle={() => setOpenFilter(openFilter === 'profitPerHour' ? null : 'profitPerHour')}
+                filterValue={minRoi}
+                onFilterChange={setMinRoi}
+                filterPlaceholder="Min ROI %"
+                filterType="percent"
+                isOpen={openFilter === 'roi'}
+                onToggle={() => setOpenFilter(openFilter === 'roi' ? null : 'roi')}
+                onClose={() => setOpenFilter(null)}
+              />
+              <FilterableHeader
+                label="Volume"
+                sortKey="volume"
+                currentSortKey={sortKey}
+                sortAsc={sortAsc}
+                onSort={handleSort}
+                filterValue={minVolume}
+                onFilterChange={setMinVolume}
+                filterPlaceholder="Min volume"
+                filterType="number"
+                isOpen={openFilter === 'volume'}
+                onToggle={() => setOpenFilter(openFilter === 'volume' ? null : 'volume')}
                 onClose={() => setOpenFilter(null)}
               />
               <FilterableHeader
@@ -408,10 +439,11 @@ export function HighAlchTab({ prices, mapping }: HighAlchTabProps) {
                   />
                   {e.name}
                 </td>
-                <td className="alch-td">{e.alchValue.toLocaleString()}</td>
                 <td className="alch-td">{e.buyPrice.toLocaleString()}</td>
-                <td className={`alch-td ${profitClass(e.profitPerAlch)}`}>{e.profitPerAlch.toLocaleString()}</td>
-                <td className={`alch-td ${profitClass(e.profitPerHour)}`}>{formatGp(e.profitPerHour)}</td>
+                <td className="alch-td">{e.sellPrice.toLocaleString()}</td>
+                <td className={`alch-td ${profitClass(e.margin)}`}>{e.margin.toLocaleString()}</td>
+                <td className={`alch-td ${profitClass(e.roi)}`}>{e.roi.toFixed(1)}%</td>
+                <td className="alch-td">{formatGp(e.volume)}</td>
                 <td className="alch-td">{e.buyLimit != null ? e.buyLimit.toLocaleString() : '-'}</td>
                 <td className="alch-td">{e.costPerLimit != null ? formatGp(e.costPerLimit) : '-'}</td>
                 <td className={`alch-td ${profitClass(e.profitPerLimit ?? 0)}`}>{e.profitPerLimit != null ? formatGp(e.profitPerLimit) : '-'}</td>

@@ -19,6 +19,7 @@ Client-side Next.js app that evaluates Old School RuneScape money-making methods
 |------|---------|
 | `src/lib/types.ts` | Core types: `Method`, `PriceMap`, `MethodEvaluation`, `Skill` |
 | `src/lib/evaluator.ts` | Profit calculation engine (cost, revenue, actions/hr, XP/hr) |
+| `src/lib/geTax.ts` | GE tax calculation (2% capped at 5M, with exemptions) |
 | `src/lib/itemNames.ts` | Item ID to display name mapping (~537 items) |
 | `src/lib/price-service.ts` | Fetches from Wiki API with 5-min cache |
 | `src/lib/hiscores.ts` | Player stats lookup via hiscores API |
@@ -27,6 +28,8 @@ Client-side Next.js app that evaluates Old School RuneScape money-making methods
 | `src/components/ClientPage.tsx` | Main app state container (levels, filters, sorting, chains) |
 | `src/components/MethodCard.tsx` | Method display with expandable detail view |
 | `src/components/CraftingChain.tsx` | Multi-step production chain UI |
+| `src/components/HighAlchTab.tsx` | High alchemy profit analysis (uses 24h avg prices) |
+| `src/components/FlippingTab.tsx` | GE flip margin analysis (uses instant prices) |
 | `src/app/api/hiscores/route.ts` | Server-side proxy to RuneScape hiscores API |
 
 ## Data model

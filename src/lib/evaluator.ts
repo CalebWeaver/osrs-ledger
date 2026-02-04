@@ -1,5 +1,6 @@
 import { Method, MethodEvaluation, PlayerModifiers, PriceMap, Requirement, Skill } from './types';
 import { ITEM_NAMES } from './itemNames';
+import { calculateGeTax } from './geTax';
 export { ITEM_NAMES } from './itemNames';
 
 export function calculateMethodCost(method: Method, prices: PriceMap): { costPerAction: number, inputCosts: { name: string; id: number; price: number; count: number; total: number }[] } {
@@ -67,16 +68,20 @@ export function evaluateMethod(
     : undefined;
   const successMultiplier = successRate ?? 1;
 
-  // 4. Calculate Revenue (scaled by success rate)
+  // 4. Calculate Revenue (scaled by success rate, minus GE tax)
   const lootMultiplier = (method.category === 'Thieving' && modifiers?.roguesOutfit) ? 2 : 1;
   let revenuePerAction = 0;
   const outputRevenues = method.outputs.map((output) => {
     const priceData = prices[output.id];
-    // Coins are always worth 1 gp each
+    // Coins are always worth 1 gp each and aren't sold on GE (no tax)
     // Use 'avgLowPrice' (24h sell avg) if available, else 'low' (latest sell instasell)
-    const price = output.id === 995 ? 1 : (priceData?.avgLowPrice ?? priceData?.low ?? 0);
+    const isCoins = output.id === 995;
+    const price = isCoins ? 1 : (priceData?.avgLowPrice ?? priceData?.low ?? 0);
     const effectiveCount = output.count * successMultiplier * lootMultiplier;
-    const total = price * effectiveCount;
+    const grossTotal = price * effectiveCount;
+    // Apply GE tax to items sold on GE (not coins, checks exemption list)
+    const tax = isCoins ? 0 : calculateGeTax(grossTotal, output.id);
+    const total = grossTotal - tax;
     revenuePerAction += total;
     const volume = (priceData?.highPriceVolume ?? 0) + (priceData?.lowPriceVolume ?? 0);
     return {

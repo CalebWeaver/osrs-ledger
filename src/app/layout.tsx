@@ -11,7 +11,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
 export const metadata: Metadata = {
   title: "OSRS Ledger",
   description: "Real-time OSRS Money-Making Recommender",
