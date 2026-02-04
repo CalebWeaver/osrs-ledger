@@ -559,4 +559,154 @@ export const ITEM_NAMES: Record<number, string> = {
   32352: 'Marlin',
   32360: 'Yellow fin',
   32362: 'Marlin scales',
+  // Prayer potions (all doses)
+  143: 'Prayer potion(1)',
+  141: 'Prayer potion(2)',
+  // 139: 'Prayer potion(3)', // Already exists
+  2434: 'Prayer potion(4)',
+  // Super restore (all doses)
+  3030: 'Super restore(1)',
+  3028: 'Super restore(2)',
+  // 3026: 'Super restore(3)', // Already exists
+  3024: 'Super restore(4)',
+  // Saradomin brew (all doses)
+  6691: 'Saradomin brew(1)',
+  6689: 'Saradomin brew(2)',
+  // 6687: 'Saradomin brew(3)', // Already exists
+  6685: 'Saradomin brew(4)',
+  // Ranging potion (all doses)
+  173: 'Ranging potion(1)',
+  171: 'Ranging potion(2)',
+  // 169: 'Ranging potion(3)', // Already exists
+  2444: 'Ranging potion(4)',
+  // Super combat potion (all doses)
+  12701: 'Super combat potion(1)',
+  12699: 'Super combat potion(2)',
+  12697: 'Super combat potion(3)',
+  12695: 'Super combat potion(4)',
+  // Sanfew serum (all doses)
+  10931: 'Sanfew serum(1)',
+  10929: 'Sanfew serum(2)',
+  10927: 'Sanfew serum(3)',
+  10925: 'Sanfew serum(4)',
+  // Stamina potion (all doses)
+  12631: 'Stamina potion(1)',
+  12629: 'Stamina potion(2)',
+  12627: 'Stamina potion(3)',
+  12625: 'Stamina potion(4)',
+  // Anti-venom+ (all doses)
+  12919: 'Anti-venom+(1)',
+  12917: 'Anti-venom+(2)',
+  12915: 'Anti-venom+(3)',
+  12913: 'Anti-venom+(4)',
+  // Super attack (all doses)
+  149: 'Super attack(1)',
+  147: 'Super attack(2)',
+  // 145: 'Super attack(3)', // Already exists
+  2436: 'Super attack(4)',
+  // Super strength (all doses)
+  161: 'Super strength(1)',
+  159: 'Super strength(2)',
+  // 157: 'Super strength(3)', // Already exists
+  2440: 'Super strength(4)',
+  // Super defence (all doses)
+  167: 'Super defence(1)',
+  165: 'Super defence(2)',
+  // 163: 'Super defence(3)', // Already exists
+  2442: 'Super defence(4)',
+  // Magic potion (all doses)
+  3046: 'Magic potion(1)',
+  3044: 'Magic potion(2)',
+  // 3042: 'Magic potion(3)', // Already exists
+  3040: 'Magic potion(4)',
+  // Antifire potion (all doses)
+  2458: 'Antifire potion(1)',
+  2456: 'Antifire potion(2)',
+  2454: 'Antifire potion(3)',
+  2452: 'Antifire potion(4)',
+  // Extended antifire (all doses)
+  11957: 'Extended antifire(1)',
+  11955: 'Extended antifire(2)',
+  11953: 'Extended antifire(3)',
+  11951: 'Extended antifire(4)',
+  // Super antifire potion (all doses)
+  21987: 'Super antifire potion(1)',
+  21984: 'Super antifire potion(2)',
+  21981: 'Super antifire potion(3)',
+  21978: 'Super antifire potion(4)',
+  // Divine super combat potion (all doses)
+  23694: 'Divine super combat potion(1)',
+  23691: 'Divine super combat potion(2)',
+  23688: 'Divine super combat potion(3)',
+  23685: 'Divine super combat potion(4)',
+  // Divine ranging potion (all doses)
+  23742: 'Divine ranging potion(1)',
+  23739: 'Divine ranging potion(2)',
+  23736: 'Divine ranging potion(3)',
+  23733: 'Divine ranging potion(4)',
+  // Attack potion (all doses)
+  125: 'Attack potion(1)',
+  123: 'Attack potion(2)',
+  // 121: 'Attack potion(3)', // Already exists
+  2428: 'Attack potion(4)',
+  // Strength potion (all doses)
+  119: 'Strength potion(1)',
+  117: 'Strength potion(2)',
+  // 115: 'Strength potion(3)', // Already exists
+  113: 'Strength potion(4)',
+  // Defence potion (all doses)
+  137: 'Defence potion(1)',
+  135: 'Defence potion(2)',
+  // 133: 'Defence potion(3)', // Already exists
+  2432: 'Defence potion(4)',
+  // Restore potion (all doses)
+  131: 'Restore potion(1)',
+  129: 'Restore potion(2)',
+  // 127: 'Restore potion(3)', // Already exists
+  2430: 'Restore potion(4)',
+  // Energy potion (all doses)
+  3014: 'Energy potion(1)',
+  3012: 'Energy potion(2)',
+  // 3010: 'Energy potion(3)', // Already exists
+  3008: 'Energy potion(4)',
+  // Super energy potion (all doses)
+  3022: 'Super energy(1)',
+  3020: 'Super energy(2)',
+  // 3018: 'Super energy(3)', // Already exists
+  3016: 'Super energy(4)',
+  // Antipoison (all doses)
+  179: 'Antipoison(1)',
+  177: 'Antipoison(2)',
+  // 175: 'Antipoison(3)', // Already exists
+  2446: 'Antipoison(4)',
+  // Superantipoison (all doses)
+  185: 'Superantipoison(1)',
+  183: 'Superantipoison(2)',
+  // 181: 'Superantipoison(3)', // Already exists
+  2448: 'Superantipoison(4)',
+  // Antidote++ (all doses)
+  5958: 'Antidote++(1)',
+  5956: 'Antidote++(2)',
+  5954: 'Antidote++(3)',
+  5952: 'Antidote++(4)',
+  // Anti-venom (all doses)
+  12911: 'Anti-venom(1)',
+  12909: 'Anti-venom(2)',
+  12907: 'Anti-venom(3)',
+  12905: 'Anti-venom(4)',
+  // Bastion potion (all doses)
+  22470: 'Bastion potion(1)',
+  22467: 'Bastion potion(2)',
+  22464: 'Bastion potion(3)',
+  22461: 'Bastion potion(4)',
+  // Battlemage potion (all doses)
+  22458: 'Battlemage potion(1)',
+  22455: 'Battlemage potion(2)',
+  22452: 'Battlemage potion(3)',
+  22449: 'Battlemage potion(4)',
+  // Zamorak brew (all doses)
+  193: 'Zamorak brew(1)',
+  191: 'Zamorak brew(2)',
+  189: 'Zamorak brew(3)',
+  2450: 'Zamorak brew(4)',
 };

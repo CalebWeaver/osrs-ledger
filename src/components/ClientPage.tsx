@@ -9,6 +9,8 @@ import { MethodCard } from './MethodCard';
 import { SkillInput } from './SkillInput';
 import { CraftingChain } from './CraftingChain';
 import { HighAlchTab } from './HighAlchTab';
+import { FlippingTab } from './FlippingTab';
+import { DecantingTab } from './DecantingTab';
 import { parseGpInput, normalizeGpInput } from '@/lib/parseGp';
 import { InfoTip } from './InfoTip';
 
@@ -42,7 +44,7 @@ interface ClientPageProps {
   mapping: ItemMapping[];
 }
 
-type AppTab = 'methods' | 'highalch';
+type AppTab = 'methods' | 'highalch' | 'flipping' | 'decanting';
 
 const LS_KEY = 'osrs-ledger-settings';
 
@@ -110,7 +112,7 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
     if (s.minOutputVolume !== undefined) setMinOutputVolume(s.minOutputVolume);
     if (s.gpPerXp !== undefined) setGpPerXp(s.gpPerXp);
     if (s.completedQuests) setCompletedQuests(new Set(s.completedQuests));
-    if (s.activeTab === 'methods' || s.activeTab === 'highalch') setActiveTab(s.activeTab);
+    if (s.activeTab === 'methods' || s.activeTab === 'highalch' || s.activeTab === 'flipping' || s.activeTab === 'decanting') setActiveTab(s.activeTab);
     if (s.xpSkillFilter) setXpSkillFilter(new Set(s.xpSkillFilter as Skill[]));
     if (s.roguesOutfit !== undefined) setRoguesOutfit(s.roguesOutfit);
     setHydrated(true);
@@ -244,9 +246,25 @@ export function ClientPage({ prices, mapping }: ClientPageProps) {
         >
           High Alch
         </button>
+        <button
+          className={`top-tab ${activeTab === 'flipping' ? 'top-tab--active' : ''}`}
+          onClick={() => setActiveTab('flipping')}
+        >
+          Flipping
+        </button>
+        <button
+          className={`top-tab ${activeTab === 'decanting' ? 'top-tab--active' : ''}`}
+          onClick={() => setActiveTab('decanting')}
+        >
+          Decanting
+        </button>
       </div>
 
-      {activeTab === 'highalch' ? (
+      {activeTab === 'decanting' ? (
+        <DecantingTab prices={prices} mapping={mapping} />
+      ) : activeTab === 'flipping' ? (
+        <FlippingTab prices={prices} mapping={mapping} />
+      ) : activeTab === 'highalch' ? (
         <HighAlchTab prices={prices} mapping={mapping} />
       ) : (
       <div className="content-wrapper">

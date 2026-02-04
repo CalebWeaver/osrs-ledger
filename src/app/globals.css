@@ -1204,6 +1204,107 @@ select.input-field option {
   object-fit: contain;
 }
 
+/* Flipping Tab - Filterable Headers */
+.flip-th-filterable {
+  position: relative;
+  overflow: visible;
+}
+
+.flip-th-content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+.flip-th-label {
+  cursor: pointer;
+}
+
+.flip-filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #6b6050;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.flip-filter-btn:hover {
+  color: var(--osrs-text);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.flip-filter-btn--active {
+  color: var(--osrs-accent);
+}
+
+.flip-filter-btn--active:hover {
+  color: var(--osrs-accent);
+}
+
+.flip-filter-popover {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 1000;
+  background: var(--osrs-panel-dark);
+  border: 1px solid var(--osrs-border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 130px;
+}
+
+.flip-filter-input {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.flip-filter-clear {
+  background: none;
+  border: none;
+  color: #a89880;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  text-align: right;
+}
+
+.flip-filter-clear:hover {
+  color: var(--osrs-red);
+}
+
+.flip-active-filters {
+  color: var(--osrs-accent);
+}
+
+/* Decanting Tab */
+.decant-best-buy {
+  color: var(--osrs-green);
+  font-weight: bold;
+}
+
+.decant-best-sell {
+  color: var(--osrs-accent);
+  font-weight: bold;
+}
+
+.decant-missing {
+  color: #6b6050;
+}
+
 /* Sidebar toggle - hidden on desktop */
 .sidebar-toggle {
   display: none;
